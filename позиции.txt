@@ -1,0 +1,47 @@
+1/23    2/45    3/68    4/90    5/113
+=====================================
+# 23 45 68 90 113 | 135 203
+1 крысы
+2 шпионы
+3 контрабандисты
+4 пауки
+5 дикари
+6 кикиморы
+7 ящеры
+
+alexs           ? ? ?
+vdnx            ? ? ?
+kiev            2/3 3/4 4/5
+
+kitay           ? ? ?
+park_kr         1/2 2/3 3/4
+prospekt        ? ? ?
+riga            ? ? ?
+suxarev         ? ? ?
+
+frunze          2 3 7
+komunist        2 3 7
+
+biblioteka      1 2 3
+borov           1 2 3
+bulvar          1 2 3
+most            1 2 3
+novok           1 2 3
+pavelec         1 2 3
+pavelec_g       1 2 3
+pushkin         1 2 3
+teatr           1 2 3
+tver            1 2 3
+
+kiev_a          - - -
+kropot          - - -
+park_g          - - -
+polyanka        - - -
+tretya          - - -
+turgenev        - - -
+chexov          - - -
+
+25 станций
+7 без заданий
+18
+10 с 123

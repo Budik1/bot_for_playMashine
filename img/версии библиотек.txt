@@ -1,0 +1,6 @@
+pip install PyAutoGUI==0.9.54		25 мая 2023 г.
+pip install Pillow==10.0.0		1 июл. 2023 г.
+pip install PyScreeze==0.1.29		25 мая 2023 г.
+
+по установке Tesseract-OCR
+https://russianblogs.com/article/86142270266/
