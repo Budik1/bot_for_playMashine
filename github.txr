@@ -1,0 +1,7 @@
+echo "# bot_for_playMashine" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Budik1/bot_for_playMashine.git
+git push -u origin main
