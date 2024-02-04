@@ -1,5 +1,5 @@
 import pyautogui
-from time import sleep
+from time import sleep, time
 import datetime
 
 son = 1
@@ -10,19 +10,29 @@ par_conf = 0.79
 nali4ie_energii = 1
 koli4estvo_zadaniy = 3
 oblast = (51, 707, 92, 111)
-img_sl = {'спецпредложение':'img/spec_predlog.png', 'закрыть в спецпредложении':'img/s_p_zakr.png',
-          'продолжить как Гаврил':'img/b_autoriz.png',
-          'мои игры V1':'img/my_game1.png','мои игры V2':'img/my_game2.png',
-          'иконка на рабочем столе':'img/icon_in_desktop.png'}
+img_sl = {'спецпредложение': 'img/spec_predlog.png', 'закрыть в спецпредложении': 'img/s_p_zakr.png',
+          'продолжить как Гаврил': 'img/b_autoriz.png',
+          'мои игры V1': 'img/my_game1.png', 'мои игры V2': 'img/my_game2.png',
+          'иконка на рабочем столе': 'img/icon_in_desktop.png'}
+iter_detect__region_poiska = 0
+
+
+def my_print_to_file(text):
+    '''Принимает текст и выводит в файл строку '''
+    date_time, date = time_now()
+    file = open('print.txt', 'a+')
+    print(date_time, text, file=file)
+    file.close()  # закройте файл после работы с ним.
 
 def time_now():
     now = datetime.datetime.now()
-    date_time = (now.strftime('%Y-%m-%d_%H:%M:%S'))
+    date_time = (now.strftime('%Y-%m-%d %H:%M:%S'))
     date = (now.date())
     return date_time, date
 
 
 def podapok():
+    '''Обмен ежедневными подарками'''
     podarok = pyautogui.locateCenterOnScreen('img/b_pod.png', confidence=0.91)
     pyautogui.moveTo(podarok, duration=1, tween=pyautogui.easeInOutQuad)
     pyautogui.click(podarok)
@@ -106,14 +116,13 @@ def zapusk():
         while pos_my_game is None and pos_my_game1 is None:
             sleep(0.5)
             pos_my_game = pyautogui.locateCenterOnScreen('img/my_game1.png', confidence=0.8)
-            print(pos_my_game)
             pos_my_game1 = pyautogui.locateCenterOnScreen('img/my_game2.png', confidence=0.8)
-            print(pos_my_game1)
+            print(pos_my_game, pos_my_game1, ' в ожидании появления кнопки "my_game"')
 
         if pos_my_game is not None:
             pyautogui.moveTo(pos_my_game, duration=1, tween=pyautogui.easeInOutQuad)
             pyautogui.click(pos_my_game)
-            print('pos_my_game' + str(pos_my_game))
+            print('pos_my_game ' + str(pos_my_game))
         elif pos_my_game1 is not None:
             pyautogui.moveTo(pos_my_game1, duration=1, tween=pyautogui.easeInOutQuad)
             pyautogui.click(pos_my_game1)
@@ -152,8 +161,8 @@ def zapusk():
         pyautogui.hotkey('Ctrl', '-')
         pyautogui.hotkey('Ctrl', '-')
 
-        # смещение окна в лево на 384
-        pyautogui.moveTo(684, 11, duration=1, tween=pyautogui.easeInOutQuad)
+        # смещение окна в лево на 382
+        pyautogui.moveTo(682, 11, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.dragTo(300, 11, duration=1)
 
         # смещение позунка на 45
@@ -164,7 +173,6 @@ def zapusk():
             pyautogui.moveTo(x, y, duration=1, tween=pyautogui.easeInOutQuad)
             pyautogui.dragTo(x, y + 45, duration=1)
 
-
     authorization()
     _my_game()
     klik_icon_game()
@@ -172,70 +180,91 @@ def zapusk():
     spec_predlog()
 
 
+def detect_region_poiska():
+    global iter_detect__region_poiska
+    start_time_detect_region_poiska = time()
+    iter_detect__region_poiska += 1
+    pos_klan = pyautogui.locateCenterOnScreen('img/klan_red.png', confidence=0.9)
+    pos_settings = pyautogui.locateCenterOnScreen('img/shesternya.png', confidence=0.9)
+    if pos_klan is not None:
+        x_region, y_region = pos_klan
+        x_region -= 125
+        y_region += 503
+        region_poiska = (x_region, y_region, 59, 132)
+    else:
+        x_region, y_region = pos_settings
+        x_region -= 776
+        y_region -= 10
+        region_poiska = (x_region, y_region, 59, 132)
+    # print('вычисление региона поиска VIP №', iter_detect__region_poiska, ' длилось ',
+    #       round((time() - start_time_detect_region_poiska), 3), ' сек.')
+    return region_poiska
+
+
+def vip_detected():
+    region_poiska = detect_region_poiska()
+    sleep(son)
+    pos_vip = pyautogui.locateCenterOnScreen('img/b_vip.png', region=region_poiska, confidence=0.8)
+    pyautogui.moveTo(pos_vip, duration=1, tween=pyautogui.easeInOutQuad)
+    pyautogui.click(pos_vip)
+    # print('клик по VIP ' + str(pos_vip))
+    sleep(son)
+
+def dom_detected():
+    sleep(son)
+    dom = pyautogui.locateCenterOnScreen('img/b_dom.png', confidence=0.9)
+    pyautogui.moveTo(dom, duration=1, tween=pyautogui.easeInOutQuad)
+    pyautogui.click(dom)
+    # print('клик по дом ' + str(dom))
+    sleep(son)
+
+def vna4flo():
+    begin = pyautogui.locateCenterOnScreen('img/b_begin.png', confidence=0.96)
+    if begin is not None:  # если увидел
+        pyautogui.moveTo(begin, duration=1, tween=pyautogui.easeInOutQuad)
+        print(' перемотка в начало ')
+        sleep(son)
+        pyautogui.click(begin)
+        print('клик в начало ' + str(begin))
+    pyautogui.moveTo(50, 600, duration=1, tween=pyautogui.easeInOutQuad)
+    sleep(son)
+
+def obysk():
+    '''хз пока'''
+    obysk_go = pyautogui.locateCenterOnScreen('img/b_obysk.png', confidence=0.8)
+    if obysk_go is not None:
+        pyautogui.moveTo(obysk_go, duration=1, tween=pyautogui.easeInOutQuad)
+        pyautogui.click(obysk_go)
+        # print("клик обыск" + str(obysk_go))
+        vip = 1
+    else:
+        # print(' уже обыскан ')
+        vip = 0
+    return vip
+
+def new_analysis():
+    sleep(son)
+    ar_right = pyautogui.locateCenterOnScreen('img/b_arrow_right.png', confidence=0.8)
+    pyautogui.moveTo(ar_right, duration=1, tween=pyautogui.easeInOutQuad)
+    pyautogui.click(ar_right)
+    sleep(son)
+
+def end_obysk():
+    pyautogui.moveTo(200, 670)
+    sleep(son)
+    vyxod = pyautogui.locateCenterOnScreen('img/b_vyxod.png', confidence=0.9)
+    pyautogui.moveTo(vyxod, duration=1, tween=pyautogui.easeInOutQuad)
+    pyautogui.click(vyxod)
+    print('клик на выход')
+    pyautogui.moveTo(200, 670, duration=2, tween=pyautogui.easeInOutQuad)
+
+
 def shmon():
     global sum_vip
+    start_time = time()
     vi = 10  # задаёт количество обнаружений
     analiz = 0
     vizit = 0
-
-    def vna4flo():
-        begin = pyautogui.locateCenterOnScreen('img/b_begin.png', confidence=0.96)
-        if begin is not None:  # если увидел
-            pyautogui.moveTo(begin, duration=1, tween=pyautogui.easeInOutQuad)
-            print(' перемотка в начало ')
-            sleep(son)
-            pyautogui.click(begin)
-            print('клик в начало ' + str(begin))
-        pyautogui.moveTo(50, 600, duration=1, tween=pyautogui.easeInOutQuad)
-        sleep(son)
-
-    def vip_detected():
-        sleep(son)
-        pos_vip = pyautogui.locateCenterOnScreen('img/b_vip.png', region=oblast, confidence=0.8)
-        pyautogui.moveTo(pos_vip, duration=1, tween=pyautogui.easeInOutQuad)
-        pyautogui.click(pos_vip)
-        print('клик по VIP ' + str(pos_vip))
-        sleep(son)
-
-    def dom_detected():
-        sleep(son)
-        dom = pyautogui.locateCenterOnScreen('img/b_dom.png', confidence=0.9)
-        pyautogui.moveTo(dom, duration=1, tween=pyautogui.easeInOutQuad)
-        pyautogui.click(dom)
-        print('клик по дом ' + str(dom))
-        sleep(son)
-
-    def dom_not_detected():
-        sleep(son)
-        pos_vip = pyautogui.locateCenterOnScreen('img/b_vip.png', region=oblast, confidence=0.8)
-        pyautogui.click(pos_vip)
-        print("повтор клик по дом")
-        sleep(son)
-
-    def obysk():
-        obysk = pyautogui.locateCenterOnScreen('img/b_obysk.png', confidence=0.8)
-        if obysk is not None:
-            pyautogui.moveTo(obysk, duration=1, tween=pyautogui.easeInOutQuad)
-            pyautogui.click(obysk)
-            print("клик обыск" + str(obysk))
-        else:
-            print(' уже обыскан ')
-
-    def new_analysis():
-        sleep(son)
-        ar_right = pyautogui.locateCenterOnScreen('img/b_arrow_right.png', confidence=0.8)
-        pyautogui.moveTo(ar_right, duration=1, tween=pyautogui.easeInOutQuad)
-        pyautogui.click(ar_right)
-        sleep(son)
-
-    def end_obysk():
-        pyautogui.moveTo(200, 670)
-        sleep(son)
-        vyxod = pyautogui.locateCenterOnScreen('img/b_vyxod.png', confidence=0.9)
-        pyautogui.moveTo(vyxod, duration=1, tween=pyautogui.easeInOutQuad)
-        pyautogui.click(vyxod)
-        print('клик на выход')
-        pyautogui.moveTo(200, 670, duration=2, tween=pyautogui.easeInOutQuad)
 
     vna4flo()
     while vizit < vi:
@@ -251,10 +280,11 @@ def shmon():
             while dom is None and pd <= 25:
                 pd += 1
                 er += 1
-                dom_not_detected()
-                print('Дом не найден, повтор поиска №' + str(pd) + 'всего ошибок ' + str(er))
+                vip_detected()
+                # dom_not_detected()
+                # print('Дом не найден, повтор поиска №' + str(pd) + 'всего ошибок ' + str(er))
                 dom = pyautogui.locateCenterOnScreen('img/b_dom.png', confidence=0.9)
-            print(' дом найден')
+            # print(' дом найден')
             dom_detected()
             obysk()
         if vizit < vi:
@@ -262,9 +292,13 @@ def shmon():
     end_obysk()
     print('Проанализировано ' + str(analiz) + ' изображений. Найдено ' + str(vizit) + ' VIP ')
     sum_vip = vizit
+    finish_time = float(time() - start_time)  # общее количество секунд
+    minuty = int(finish_time // 60)  # количество минут
+    sekundy = round((finish_time % minuty), 2)
+    print('Потрачено время', minuty, 'минут', sekundy, 'сек.')
 
 
-# нажать по ссылке
+# нажать по ссылке "pos_klick" с задержкой "z_p_k"
 def moveTo_click(pos_klick, z_p_k):
     # z_p_k задержка перед кликом
     # print('moveTo_click', pos_klick)

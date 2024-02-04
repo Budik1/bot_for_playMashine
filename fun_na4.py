@@ -5,7 +5,7 @@ from fun import moveTo_click
 
 conf = 0.97
 son = 0.9
-zadergka = 2
+
 par_conf = 0.8
 # xp_imag = ['img/23xp.png', 'img/45xp.png', 'img/68xp.png', 'img/90xp.png', 'img/113xp.png']
 nali4ie_energii = 1
@@ -83,22 +83,26 @@ def orientir():
 
 
 
-def v_puti(nom_zadanie):
+def boy_v_puti(zadergka=2):
+    '''вапрнеельиса'''
     # дождаться "пропустить бой", нажать собаку если активна, закрыть бой
-    # print('v_puti', nom_zadanie)
+    # print('v_puti')
     boy_end = pyautogui.locateCenterOnScreen('img/b_boy_end.png', confidence=par_conf)
     propusk_boy = pyautogui.locateCenterOnScreen('img/propustit_boy.png', confidence=par_conf)
     sobaka = pyautogui.locateCenterOnScreen('img/sobaka.png', confidence=par_conf)
+    it = 0
     while boy_end is None:
         # print(boy_end, 'boy_end')
         # print('пропуск боя', propusk_boy)
-
-        if propusk_boy is not None:  # нажать " пропустить бой"
-            if sobaka is not None:  # нажать "на собаку"
-                # print(sobaka, 'sobaka')
-                moveTo_click(sobaka, 0.2)
+        if sobaka is not None:  # нажать "на собаку"
+            # print(sobaka, 'sobaka')
+            moveTo_click(sobaka, 0.1)
+        # print(it)
+        if propusk_boy is not None and it >= 2:  # нажать " пропустить бой"
+            moveTo_click(propusk_boy, 0.5)
             # print(propusk_boy, 'propusk_boy')
-            moveTo_click(propusk_boy, 0.2)
+        it += 1
+
         sleep(son * zadergka)
         boy_end = pyautogui.locateCenterOnScreen('img/b_boy_end.png', confidence=par_conf)
         zakryt = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=par_conf)
@@ -109,16 +113,14 @@ def v_puti(nom_zadanie):
             # print(zakryt, 'zakryt 1')
             # print('конец v_puti ')
             moveTo_click(zakryt, 0.2)
-            sleep(1)
+            sleep(0.5)
 
 
-def press_en(nom_zadaniya, pos):
-    #
-    # print('press_en')
-    global nali4ie_energii #, zadanie
-    # zadanie = nom_zadaniya
-    y = pos[1] - 20
+def press_en(nomer_zadaniya, pos):
+    global nali4ie_energii
+
     x = pos[0]
+    y = pos[1]- 20
     pos_clik = x, y
     # pyautogui.moveTo(pos_clik) # для отладки
     # print('тут должен быть клик') # для отладки
@@ -128,8 +130,8 @@ def press_en(nom_zadaniya, pos):
     nal_energii = pyautogui.locateCenterOnScreen('img/malo_energii.png', confidence=0.8)
     # print(" не хватает энергии", nal_energii)
     if nal_energii is None:
-        print('Выполняю ', nom_zadaniya, ' задание')
-        v_puti(nom_zadaniya)
+        print('Выполняю ', nomer_zadaniya, ' задание')
+        boy_v_puti()
     else:
         nali4ie_energii = 0
         print(' Энергия закончилась!!')
@@ -139,8 +141,8 @@ def press_en(nom_zadaniya, pos):
 
 
 def analiz_zadaniy(img1, img2, region):
-    # print( region)
     # print('analiz_zadaniy')
+    # print( region) # полученный region
     global variable
     # print('вызов na4Stanc в анализе')
     na4stanc()
@@ -188,7 +190,7 @@ def vybor_zadaniya_na_puli():
     region1, region2, region3 = orientir()
     global nali4ie_energii, koli4estvo_zadaniy, conf
     while nali4ie_energii == 1 and koli4estvo_zadaniy > 0:
-                # print('вызов analiz_zadaniy из vybor_zadaniya_na_puli')
+        # print('вызов analiz_zadaniy из vybor_zadaniya_na_puli')
         analiz_zadaniy(xp_imag[0], xp_imag[1], region1)
         variant1 = variable
         # print('variant1 = ', variant1)
@@ -220,6 +222,27 @@ def vybor_zadaniya_na_puli():
             print('confidence=', conf)
             conf -= 0.01
 
+    print(' Задания выполнены!!!!')
+    koli4estvo_zadaniy = 1
+    nali4ie_energii = 1
+    zakr = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=0.9)
+    while zakr is not None:
+        moveTo_click(zakr, 0.3)
+        zakr = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=0.9)
+
+def en_nomer_zadaniya(nomer_zadaniya):
+    global nali4ie_energii, koli4estvo_zadaniy, conf
+    region1, region2, region3 = orientir()
+    if nomer_zadaniya == 1:
+        region = region1
+    elif nomer_zadaniya == 2:
+        region = region2
+    else:
+        region = region3
+
+    while nali4ie_energii == 1 and koli4estvo_zadaniy > 0:
+        na4stanc()
+        press_en(nomer_zadaniya, region)
     print(' Задания выполнены!!!!')
     koli4estvo_zadaniy = 1
     nali4ie_energii = 1

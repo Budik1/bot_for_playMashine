@@ -1,12 +1,16 @@
-# имя станции = [имя для Print, поиск на карте, ID станции, если её не видно]
+# имя станции = [имя для Print, поиск на карте, ID станции, если её не видно на карте,[задания]]
+
 alexs = ['ст. Алексеевская', 'img/tonelli/k_Alexs.png', 'img/tonelli/s_Alexs.png', 0]
 biblioteka = ['ст. Библиотека им. Ленина', 'img/tonelli/k_Biblioteka.png', 'img/tonelli/s_Biblioteka.png', 0]
+
 borov = ['ст. Боровицкая', 'img/tonelli/k_Borov.png', 'img/tonelli/s_Borov.png', 'стрелка юг']
+
 bulvar = ['ст. Цветной бульвар', 'img/tonelli/k_Cvetnoy.png', 'img/tonelli/s_Cvetnoy.png', 0]
 vdnx = ['ст. ВДНХ', 'img/tonelli/k_VDNX.png', 'img/tonelli/s_VDNX.png', 0]
 
 kiev = ['ст. Киевская', 'img/tonelli/k_Kiev.png', 'img/tonelli/s_Kiev.png', 0,
         ['img/45xp.png', 'img/68xp.png', 'img/68xp.png', 'img/90xp.png', 'img/90xp.png', 'img/113xp.png']]
+
 kiev_a = ['ст. Киевская A', 'img/tonelli/k_Kiev_a.png', 'img/tonelli/s_Kiev_a.png', 0]
 kitay = ['ст. Китай-город', 'img/tonelli/k_Kitay.png', 'img/tonelli/s_Kitay.png', 'стрелка север']
 kropot = ['ст. Кропоткинская', 'img/tonelli/k_Kropotkin.png', 'img/tonelli/s_Kropotkin.png', 0]
@@ -63,8 +67,19 @@ most_kikimory = [pushkin, tver, teatr, novok, tretya, kitay,
                  turgenev, suxarev, prospekt, riga, prospekt, suxarev,
                  turgenev, suxarev, prospekt, riga, prospekt, suxarev,
                  turgenev, kitay, tretya, novok, teatr, tver, pushkin, most]
-# тест передвижения между туннелями
-test_probezgka = [ bulvar, chexov]
 
-# print(len(beg_po_krugu))
-# print(len(most_kikimory))
+frunze_kikimory = [park_kr, kropot, biblioteka, borov, chexov, tver, teatr, novok, tretya, kitay,
+                   turgenev, suxarev, prospekt, riga, prospekt, suxarev,
+                   turgenev, suxarev, prospekt, riga, prospekt, suxarev,
+                   turgenev, suxarev, prospekt, riga, prospekt, suxarev,
+                   turgenev, suxarev, prospekt, riga, prospekt, suxarev,
+                   turgenev, suxarev, prospekt, riga, prospekt, suxarev,
+                   turgenev, kitay, tretya, novok, teatr, tver, chexov, borov, biblioteka, kropot, park_kr, frunze]
+# тест передвижения между туннелями
+test_probezgka = [bulvar, chexov]
+frunze_kiev = [park_kr, park_g, kiev]
+kiev_frunze = [park_g, park_kr, frunze]
+frunze_most = [park_kr, kropot, biblioteka, borov, chexov, pushkin, most]
+most_frunze = [pushkin, chexov, borov, biblioteka, kropot, park_kr, frunze]
+pauk_yascher = [komunist, frunze, komunist, frunze, komunist, frunze, park_kr, frunze, park_kr, kropot, park_kr, kropot,
+                park_kr, kropot, park_kr, park_g, kiev, park_g, kiev, park_g, kiev, park_g, park_kr, frunze]
