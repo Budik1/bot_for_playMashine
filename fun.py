@@ -24,6 +24,7 @@ def print_to_file(text: str) -> None:
     print(date_time, text, file=file)
     file.close()  # закрыть файл после работы с ним.
 
+
 def time_now():
     ''' получение текущего времени и даты. Отдаёт формирование имени файла'''
     now = datetime.datetime.now()
@@ -55,15 +56,15 @@ def podapok():
         otkryt = pyautogui.locateCenterOnScreen('img/b_p_otkr.png', confidence=0.9)
 
 
-def zakryt():
-    zakryt0 = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
-    # print(zakryt0)
-    if zakryt0 is not None:
-        zakryt = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
-        # print(zakryt)
-        pyautogui.moveTo(zakryt, duration=1, tween=pyautogui.easeInOutQuad)
-        pyautogui.click(zakryt)
+def push_close():
+    pos_close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
+    # print(pos_close)
+    while pos_close is not None:
+        # print(push_close)
+        pyautogui.moveTo(pos_close, duration=1, tween=pyautogui.easeInOutQuad)
+        pyautogui.click(pos_close)
         sleep(son)
+        pos_close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
 
 
 def bonus():
@@ -75,21 +76,20 @@ def bonus():
     sleep(son * 2)
     # кнопка забрать
     bonus = pyautogui.locateCenterOnScreen('img/zabrat.png', confidence=0.9)
-    if bonus != None:
+    if bonus:  # != None:
         pyautogui.moveTo(bonus, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.click()
         print('Бщнус найден')
     else:
         print('Бщнус не найден')
     # кнопка закрыть
-    zakryt()
-    zakryt()
-    # save_to_File()
+    push_close()
+    push_close()
 
 
 def zapusk():
-    p_my = 0
-    paus = 0
+    # p_my = 0
+    # paus = 0
 
     def spec_predlog():
         sz = 0
@@ -181,14 +181,42 @@ def zapusk():
     spec_predlog()
 
 
-def end_obysk():
-    pyautogui.moveTo(200, 670)
+def press_right_button():
+    """
+    Сместить список друзей в лево
+    :return: 1
+    """
     sleep(son)
-    to_exit = pyautogui.locateCenterOnScreen('img/b_exit.png', confidence=0.9)
-    pyautogui.moveTo(to_exit, duration=1, tween=pyautogui.easeInOutQuad)
-    pyautogui.click(to_exit)
-    print('клик на выход')
-    pyautogui.moveTo(200, 670, duration=2, tween=pyautogui.easeInOutQuad)
+    ar_right = pyautogui.locateCenterOnScreen('img/b_arrow_right.png', confidence=0.8)
+    pyautogui.moveTo(ar_right, duration=1, tween=pyautogui.easeInOutQuad)
+    pyautogui.click(ar_right)
+    sleep(son)
+    return 1
+
+
+def press_left_button():
+    """
+    Сместить список друзей в право
+    :return: 1
+    """
+    sleep(son)
+    ar_right = pyautogui.locateCenterOnScreen('img/b_arrow_left.png', confidence=0.8)
+    pyautogui.moveTo(ar_right, duration=1, tween=pyautogui.easeInOutQuad)
+    pyautogui.click(ar_right)
+    sleep(son)
+    return 1
+
+
+def vna4flo():
+    begin = pyautogui.locateCenterOnScreen('img/b_begin.png', confidence=0.96)
+    if begin is not None:  # если увидел
+        pyautogui.moveTo(begin, duration=1, tween=pyautogui.easeInOutQuad)
+        print(' перемотка в начало ')
+        sleep(son)
+        pyautogui.click(begin)
+        print('клик в начало ' + str(begin))
+    pyautogui.moveTo(50, 600, duration=1, tween=pyautogui.easeInOutQuad)
+    sleep(son)
 
 
 def shmon():
@@ -197,6 +225,7 @@ def shmon():
     vi = 10  # задаёт количество обнаружений
     analiz = 0
     vizit = 0
+
     # ============================
 
     def detect_search_region():
@@ -218,13 +247,6 @@ def shmon():
         # print('вычисление региона поиска VIP №', iter_detect_search_region, ' длилось ',
         #       round((time() - start_time_detect_search_region), 3), ' сек.')
         return search_region
-
-    def new_analysis():
-        sleep(son)
-        ar_right = pyautogui.locateCenterOnScreen('img/b_arrow_right.png', confidence=0.8)
-        pyautogui.moveTo(ar_right, duration=1, tween=pyautogui.easeInOutQuad)
-        pyautogui.click(ar_right)
-        sleep(son)
 
     def obysk():
         '''хз пока'''
@@ -255,16 +277,15 @@ def shmon():
         pyautogui.click(pos_vip)
         # print('клик по VIP ' + str(pos_vip))
         sleep(son)
-    def vna4flo():
-        begin = pyautogui.locateCenterOnScreen('img/b_begin.png', confidence=0.96)
-        if begin is not None:  # если увидел
-            pyautogui.moveTo(begin, duration=1, tween=pyautogui.easeInOutQuad)
-            print(' перемотка в начало ')
-            sleep(son)
-            pyautogui.click(begin)
-            print('клик в начало ' + str(begin))
-        pyautogui.moveTo(50, 600, duration=1, tween=pyautogui.easeInOutQuad)
+
+    def end_obysk():
+        pyautogui.moveTo(200, 670)
         sleep(son)
+        to_exit = pyautogui.locateCenterOnScreen('img/b_exit.png', confidence=0.9)
+        pyautogui.moveTo(to_exit, duration=1, tween=pyautogui.easeInOutQuad)
+        pyautogui.click(to_exit)
+        print('клик на выход')
+        pyautogui.moveTo(200, 670, duration=2, tween=pyautogui.easeInOutQuad)
 
     # ================================================================================================
     vna4flo()
@@ -289,7 +310,7 @@ def shmon():
             dom_detected()
             obysk()
         if vizit < vi:
-            new_analysis()
+            press_right_button()
     end_obysk()
     print('Проанализировано ' + str(analiz) + ' изображений. Найдено ' + str(vizit) + ' VIP ')
     sum_vip = vizit
@@ -299,8 +320,13 @@ def shmon():
     print('Потрачено время', minutes, 'минут', seconds, 'сек.')
 
 
-def move_to_click(pos_click, z_p_k):
-    """z_p_k задержка перед кликом(float)"""
+def move_to_click(pos_click: tuple, z_p_k: float):
+    """
+    Поместить указатель мыши по координатам и кликнуть, учитывая задержку.
+    :param pos_click: Point
+    :param z_p_k: задержка перед кликом(float)
+    :return: None
+    """
     # print('move_to_click', pos_click)
     sleep(0.3)
     pyautogui.moveTo(pos_click, duration=0.1, tween=pyautogui.easeInOutQuad)
@@ -309,3 +335,21 @@ def move_to_click(pos_click, z_p_k):
     pyautogui.click(pos_click)
     sleep(0.18)
 
+
+def find_link():  # width=77, height=42
+    """
+    Закрыть если открыто, т.к. за чем-то может быть не видна позиция привязки
+    :return: Point 'Зал славы'
+    """
+
+    close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
+
+    while close is not None:
+        move_to_click(close, 0.3)
+        sleep(0.5)
+    # получение координат привязки
+    pos_or_v = pyautogui.locateCenterOnScreen('img/hall_of_glory.png', confidence=0.9)
+    # pyautogui.moveTo(pos_or_v)
+    sleep(0.5)
+    # print(pos_or_v, 'ориентир клан')
+    return pos_or_v

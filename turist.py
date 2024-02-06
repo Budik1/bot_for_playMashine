@@ -1,8 +1,8 @@
 import pyautogui
 from time import sleep, time
-from fun_na4 import boy_v_puti, vybor_zadaniya_na_puli
+from fun_na4 import enemy_attack, vybor_zadaniya_na_puli
 import baza_dannyx as b_d
-from fun import zakryt, move_to_click
+from fun import push_close, move_to_click
 # import datetime
 
 son = 0.5
@@ -94,7 +94,7 @@ def tunnel_events(st0, st2):
             if kiki is not None:
                 number_of_kiki += 1
                 print(f'{number_of_kiki} Detekt Kikimora')
-            boy_v_puti(1)
+            enemy_attack(1)
         if post is not None:
             pyautogui.moveTo(post, duration=0.2)
             ataka = pyautogui.locateCenterOnScreen('img/tonelli/attack.png', confidence=0.85)
@@ -162,7 +162,7 @@ def peredvizgenie(kuda_idti: list):
 
 def test():
     global number_of_krysa
-    zakryt()
+    push_close()
     peredvizgenie(b_d.test_probezgka)
     print("тест успешно выполнен")
     return number_of_krysa
@@ -171,7 +171,7 @@ def test():
 def zadaniya_na_Kievskoy():
     """Движение от Кузнецкого моста на Киевскую - выполнение заданий начстанции - движение до Кузнецкого моста -
     выполнение заданий начстанции пока есть задания удовлетворяющие поиск"""
-    zakryt()
+    push_close()
     most_kiev()
     vybor_zadaniya_na_puli()
     print('задания на Киевской выполнены')
@@ -184,7 +184,7 @@ def zadaniya_na_Kievskoy():
 def riga_most():
     """Маршрут Рижская - Кузнецкий мост"""
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.riga_most)
     print("вернулся домой")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -196,7 +196,7 @@ def riga_most():
 def frunze_most():
     """Маршрут Фрунзенская - Кузнецкий мост"""
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.frunze_most)
     finish_time = float(time() - start_time)  # общее количество секунд
     minuty = int(finish_time // 60)  # количество минут
@@ -207,7 +207,7 @@ def frunze_most():
 def most_frunze():
     """Маршрут Кузнецкий мост - Фрунзенская"""
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.most_frunze)
     finish_time = float(time() - start_time)  # общее количество секунд
     minuty = int(finish_time // 60)  # количество минут
@@ -220,7 +220,7 @@ def most_riga():
     # движение от
     """Маршрут Кузнецкий мост - Киевская"""
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.most_riga)
     print("пришел на Рижскую")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -232,7 +232,7 @@ def most_riga():
 def kiev_most():
     """Маршрут Киевская - Кузнецккий мост """
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.kiev_most)
     print("вернулся домой")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -244,7 +244,7 @@ def kiev_most():
 def kiev_frunze():
     """Маршрут Киевская - Фрунзенская"""
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.kiev_frunze)
     print("вернулся домой")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -257,7 +257,7 @@ def kiev_frunze():
 def most_kiev():
     """Маршрут Кузнецкий мост - Киевская"""
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.most_kiev)
     print("пришел на Киевскую")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -269,7 +269,7 @@ def most_kiev():
 def frunze_kiev():
     """Маршрут Фрунзенская - Киевская"""
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.frunze_kiev)
     print("пришел на Киевскую")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -281,7 +281,7 @@ def frunze_kiev():
 def za_kikimorami():
     """При смене станции прописки список содержащий маршрут надо переписывать вручную."""
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.frunze_kikimory)
     print('на сегодня кикиморы выбиты')
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -293,7 +293,7 @@ def za_kikimorami():
 def pauk_yascher():
     """При смене станции прописки список содержащий маршрут надо переписывать вручную."""
     start_time = time()
-    zakryt()
+    push_close()
     peredvizgenie(b_d.pauk_yascher)
     print('на сегодня все пауки с ящерами зачищены')
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -304,7 +304,7 @@ def pauk_yascher():
 
 def sbor_podarkov():
     """Обход всех станций. При смене станции прописки список содержащий маршрут надо переписывать вручную."""
-    zakryt()
+    push_close()
     # peredvizgenie(b_d.beg_po_krugu)
     for it in range(len(b_d.beg_po_krugu)):
         k = it % len(b_d.beg_po_krugu)

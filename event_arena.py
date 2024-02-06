@@ -1,7 +1,7 @@
 import pyautogui
 from time import sleep
-from fun_na4 import boy_v_puti
-from fun import move_to_click
+from fun_na4 import enemy_attack
+from fun import move_to_click, find_link
 
 
 def foto(path_name, _region):
@@ -24,22 +24,8 @@ def foto_pos(name_img: str, region: tuple, tune_x=0, tune_y=0, tune_s=0, tune_v=
     foto(name_img, (x_s, y_s, width_s, height_s))
 
 
-def pig():  # width=77, height=42
-    """Закрыть если открыто, т.к. за чем-то может быть не видна позиция привязки"""
-    #
-    close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
-    if close is not None:
-        move_to_click(close, 0.3)
-    # получение координат привязки
-    pos_or_v = pyautogui.locateCenterOnScreen('img/hall_of_glory.png', confidence=0.9)
-    pyautogui.moveTo(pos_or_v)
-    sleep(0.5)
-    # print(pos_or_v, 'ориентир клан')
-    return pos_or_v
-
-
 def create_img_arena_object():
-    pos_or_v = pig()  # ориентир на зал славы
+    pos_or_v = find_link()  # ориентир на зал славы
     pyautogui.moveTo(pos_or_v)
     print(pos_or_v)
     move_to_click(pos_or_v, 0.3)  # открыть зал славы
@@ -57,14 +43,15 @@ def create_img_arena_object():
 def kill():
     boy_in_arena = 0
     while True:
-        pos_or_v = pig()
+        pos_or_v = find_link()  # ориентир на зал славы
         # print(pos_or_v)
-        move_to_click(pos_or_v, 0.3)
+        move_to_click(pos_or_v, 0.3)  # открыть зал славы
+        # вычисление региона поиска
         x, y = pos_or_v
         x -= 665
         y += 144
         region = (x, y, 560, 80)
-        region_ret = region
+        const_region = region  # сохранение региона
         pyautogui.moveTo(174, 260)
         sleep(1)
         arena_object = pyautogui.locateCenterOnScreen("img/test/arena_object.png", region=region,
@@ -74,7 +61,7 @@ def kill():
         if arena_object is None:
             _it = 0
             x, y, sh, v = region
-            while arena_object is None and _it <= 5:
+            while arena_object is None and _it <= 5:  # поиск в шести регионах без смещения списка
                 _it += 1
                 y += 68
                 # print(_it, y)
@@ -83,14 +70,15 @@ def kill():
                                                               confidence=0.9)
 
         while arena_object is None:
-            region = region_ret
+            region = const_region
+            # Если не найден раньше ищем со смещением списока в начало
             while scroll_up is not None and arena_object is None:
                 move_to_click(scroll_up, 0.5)
                 pyautogui.moveTo(174, 260)
                 scroll_up = pyautogui.locateCenterOnScreen('img/scroll_up.png', confidence=0.9)
                 arena_object = pyautogui.locateCenterOnScreen("img/test/arena_object.png", region=region,
                                                               confidence=0.85)
-            if arena_object is None:
+            if arena_object is None:  # Если не найден раньше ищем со смещением списока в конец
                 scroll_down = pyautogui.locateCenterOnScreen('img/scroll_down.png', confidence=0.9)
                 move_to_click(scroll_down, 0.3)
                 arena_object = pyautogui.locateCenterOnScreen("img/test/arena_object.png", region=region,
@@ -104,13 +92,13 @@ def kill():
         pyautogui.moveTo(attack_arena_object)
         # sleep()
         move_to_click(attack_arena_object, 0.5)
-        hero_vs_arena_object = pyautogui.locateCenterOnScreen('img/hero_vs_arena_object.png', confidence=0.9)
-        while hero_vs_arena_object is None:
+        hero_vs_opponent = pyautogui.locateCenterOnScreen('img/hero_vs_opponent.png', confidence=0.9)
+        while hero_vs_opponent is None:
             sleep(0.1)
-            hero_vs_arena_object = pyautogui.locateCenterOnScreen('img/hero_vs_arena_object.png', confidence=0.9)
-        move_to_click(hero_vs_arena_object, 0.3)
+            hero_vs_opponent = pyautogui.locateCenterOnScreen('img/hero_vs_opponent.png', confidence=0.9)
+        move_to_click(hero_vs_opponent, 0.3)
         sleep(2)
-        boy_v_puti(0.1)
+        enemy_attack(0.1)
 
 
 # create_img_arena_object()  # создание метки объекта атаки

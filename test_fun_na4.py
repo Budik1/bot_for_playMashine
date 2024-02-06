@@ -105,7 +105,7 @@ def boy_v_puti(nom_zadanie):
         propusk_boy = pyautogui.locateCenterOnScreen('img/propustit_boy.png', confidence=par_conf)
         if boy_end is not None and zakryt is not None:  # нажать закрыть в конце боя
             # print(boy_end, 'boy 1')
-            # print(zakryt, 'zakryt 1')
+            # print(push_close, 'push_close 1')
             # print('конец v_puti ')
             move_to_click(zakryt, 0.2)
             sleep(0.5)

@@ -83,8 +83,12 @@ def orientir():
 
 
 
-def boy_v_puti(zadergka=2):
-    '''вапрнеельиса'''
+def enemy_attack(zadergka=2):
+    '''
+    Событие атаки противника
+    :param zadergka:
+    :return:
+    '''
     # дождаться "пропустить бой", нажать собаку если активна, закрыть бой
     # print('v_puti')
     boy_end = pyautogui.locateCenterOnScreen('img/b_boy_end.png', confidence=par_conf)
@@ -105,14 +109,11 @@ def boy_v_puti(zadergka=2):
 
         sleep(son * zadergka)
         boy_end = pyautogui.locateCenterOnScreen('img/b_boy_end.png', confidence=par_conf)
-        zakryt = pyautogui.locateCenterOnScreen('img/close.png', confidence=par_conf)
+        close = pyautogui.locateCenterOnScreen('img/close.png', confidence=par_conf)
         sobaka = pyautogui.locateCenterOnScreen('img/sobaka.png', confidence=par_conf)
         propusk_boy = pyautogui.locateCenterOnScreen('img/propustit_boy.png', confidence=par_conf)
-        if boy_end is not None and zakryt is not None:  # нажать закрыть в конце боя
-            # print(boy_end, 'boy 1')
-            # print(zakryt, 'zakryt 1')
-            # print('конец v_puti ')
-            move_to_click(zakryt, 0.2)
+        if boy_end is not None and close is not None:  # нажать закрыть в конце боя
+            move_to_click(close, 0.2)
             sleep(0.5)
 
 
@@ -131,7 +132,7 @@ def press_en(nomer_zadaniya, pos):
     # print(" не хватает энергии", nal_energii)
     if nal_energii is None:
         print('Выполняю ', nomer_zadaniya, ' задание')
-        boy_v_puti()
+        enemy_attack()
     else:
         nali4ie_energii = 0
         print(' Энергия закончилась!!')

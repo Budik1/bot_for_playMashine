@@ -1,9 +1,9 @@
 import pyautogui
 from time import sleep
-from fun_na4 import moveTo_click
+from fun import move_to_click
 
-
-# print(pyautogui.position())
+sleep(3)
+print(pyautogui.position())
 # print(pyautogui.size())
 
 
