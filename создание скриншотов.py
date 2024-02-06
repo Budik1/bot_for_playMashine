@@ -1,6 +1,6 @@
 import pyautogui
 from time import sleep
-from fun import moveTo_click
+from fun import move_to_click
 
 son = 0.9
 par_conf = 0.8
@@ -32,7 +32,7 @@ def na4Stanc():
         x1, y1 = pos_or1
         x1, y1 = x1 - 60, y1 + 200
         pos_or1 = x1, y1
-        moveTo_click(pos_or1, 0.1)
+        move_to_click(pos_or1, 0.1)
         # print('зашел к начальнику')
         sleep(son)
         na4 = pyautogui.locateCenterOnScreen('img/na4_stanc.png', confidence=par_conf)
@@ -51,9 +51,9 @@ def skriny_energii_u_na4stanc():
     def orientir():
         pul = 444
         # закрыть если открыто, т.к. за чем-то может быть не видна позиция привязки
-        zakr = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=0.9)
+        zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
         if zakr is not None:
-            moveTo_click(zakr, 0.3)
+            move_to_click(zakr, 0.3)
         # получение координат привязки
         pos_orV = pyautogui.locateCenterOnScreen('img/klan_red.png', confidence=0.9)
         pyautogui.moveTo(pos_orV)

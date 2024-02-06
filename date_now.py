@@ -4,8 +4,8 @@ import datetime
 def time_now():
     now = datetime.datetime.now()
     date_time = (now.strftime('%Y-%m-%d_%H:%M:%S'))
-    date = (now.date())
-    return date_time, date
+    date1 = (now.date())
+    return date_time, date1
 
 
 date_time, date_o = time_now()

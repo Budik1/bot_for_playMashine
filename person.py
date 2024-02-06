@@ -1,5 +1,5 @@
 import pyautogui
-from fun import moveTo_click
+from fun import move_to_click
 from time import sleep
 
 # duration=d_drag и duration=d с предметом и в свободном состоянии
@@ -10,7 +10,7 @@ item = {'куртка рейдовоя': 'img/person/kurtka_r.png', 'куртк�
         'перчатки': 'img/person/gloves.png', 'место перчаток': 'img/person/gloves_point.png',
         'орден': 'img/person/orden.png', 'инвентарь': 'img/person/inventar.png',
         'пустой слот': 'img/person/slot.png', 'маленький слот': 'img/person/p_slot.png',
-        'фото Гаврила': 'img/person/gavril.png', 'выход': 'img/b_vyxod.png'}
+        'фото Гаврила': 'img/person/gavril.png', 'выход': 'img/b_exit.png'}
 
 
 def smena_kurtok():
@@ -57,7 +57,7 @@ def smena_per4():
 def smena_garderoba():
     inventar = pyautogui.locateCenterOnScreen(item.get('инвентарь'), confidence=0.9)
     # цикл в ожидании появления инвентаря
-    moveTo_click(inventar, 0.3)
+    move_to_click(inventar, 0.3)
     print('готов к переодеванию')
     smena_kurtok()
     smena_bruk()
@@ -68,11 +68,11 @@ def smena_garderoba():
 def pereodevanie():
     gavril = pyautogui.locateCenterOnScreen(item.get('фото Гаврила'), confidence=0.9)
     if gavril is not None:
-        moveTo_click(gavril,0.3)
+        move_to_click(gavril,0.3)
         sleep(0.5)
         smena_garderoba()
     else:
         smena_garderoba()
     vyxod = pyautogui.locateCenterOnScreen(item.get('выход'), confidence=0.9)
-    moveTo_click(vyxod, 0.3)
+    move_to_click(vyxod, 0.3)
 

@@ -1,7 +1,7 @@
 import baza_dannyx as b_d
 import pyautogui
 from time import sleep
-from fun import moveTo_click
+from fun import move_to_click
 
 conf = 0.97
 son = 0.9
@@ -35,7 +35,7 @@ def na4stanc():
         x1, y1 = pos_or1
         x1, y1 = x1 - 60, y1 + 200
         pos_or1 = x1, y1
-        moveTo_click(pos_or1, 0.2)
+        move_to_click(pos_or1, 0.2)
         # print('зашел к начальнику')
         sleep(son)
         na4 = pyautogui.locateCenterOnScreen('img/na4_stanc.png', confidence=par_conf)
@@ -46,9 +46,9 @@ def na4stanc():
 def orientir():
     # получение значиний "region=" поиска заданий
     # закрыть если открыто
-    zakr = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=0.9)
+    zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
     if zakr is not None:
-        moveTo_click(zakr,0.2)
+        move_to_click(zakr,0.2)
     # получение координат привязки
     pos_orV = pyautogui.locateCenterOnScreen('img/klan_red.png', confidence=0.9)
     pyautogui.moveTo(pos_orV)
@@ -95,19 +95,19 @@ def boy_v_puti(nom_zadanie):
         if propusk_boy is not None:  # нажать " пропустить бой"
             if sobaka is not None:  # нажать "на собаку"
                 # print(sobaka, 'sobaka')
-                moveTo_click(sobaka, 0.2)
+                move_to_click(sobaka, 0.2)
             # print(propusk_boy, 'propusk_boy')
-            moveTo_click(propusk_boy, 0.2)
+            move_to_click(propusk_boy, 0.2)
         sleep(son * zadergka)
         boy_end = pyautogui.locateCenterOnScreen('img/b_boy_end.png', confidence=par_conf)
-        zakryt = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=par_conf)
+        zakryt = pyautogui.locateCenterOnScreen('img/close.png', confidence=par_conf)
         sobaka = pyautogui.locateCenterOnScreen('img/sobaka.png', confidence=par_conf)
         propusk_boy = pyautogui.locateCenterOnScreen('img/propustit_boy.png', confidence=par_conf)
         if boy_end is not None and zakryt is not None:  # нажать закрыть в конце боя
             # print(boy_end, 'boy 1')
             # print(zakryt, 'zakryt 1')
             # print('конец v_puti ')
-            moveTo_click(zakryt, 0.2)
+            move_to_click(zakryt, 0.2)
             sleep(0.5)
 
 
@@ -135,7 +135,7 @@ def press_en(nomer_zadaniya, pos):
     # pyautogui.moveTo(pos_clik) # для отладки
     # print('тут должен быть клик') # для отладки
 
-    moveTo_click(pos_clik, 1.5)
+    move_to_click(pos_clik, 1.5)
     sleep(0.5)
     nal_energii = pyautogui.locateCenterOnScreen('img/malo_energii.png', confidence=0.8)
     # print(" не хватает энергии", nal_energii)
@@ -146,8 +146,8 @@ def press_en(nomer_zadaniya, pos):
         nali4ie_energii = 0
         print(' Энергия закончилась!!')
         sleep(son)
-        zakr = pyautogui.locateCenterOnScreen('img/zakryt.png')
-        moveTo_click(zakr, 0.5)
+        zakr = pyautogui.locateCenterOnScreen('img/close.png')
+        move_to_click(zakr, 0.5)
 
 
 def analiz_zadaniy(img1, img2, region):
@@ -235,10 +235,10 @@ def vybor_zadaniya_na_puli():
     print(' Задания выполнены!!!!')
     koli4estvo_zadaniy = 1
     nali4ie_energii = 1
-    zakr = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=0.9)
+    zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
     while zakr is not None:
-        moveTo_click(zakr, 0.3)
-        zakr = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=0.9)
+        move_to_click(zakr, 0.3)
+        zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
 
 def en_nomer_zadaniya(nomer_zadaniya):
     global nali4ie_energii, koli4estvo_zadaniy, conf
@@ -254,8 +254,8 @@ def en_nomer_zadaniya(nomer_zadaniya):
     print(' Задания выполнены!!!!')
     koli4estvo_zadaniy = 1
     nali4ie_energii = 1
-    zakr = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=0.9)
+    zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
     while zakr is not None:
-        moveTo_click(zakr, 0.3)
-        zakr = pyautogui.locateCenterOnScreen('img/zakryt.png', confidence=0.9)
+        move_to_click(zakr, 0.3)
+        zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
 

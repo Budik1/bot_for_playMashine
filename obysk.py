@@ -3,6 +3,7 @@ from time import sleep
 
 # определить регион поиска
 def detect_region_poiska():
+    ''''''
     pos_klan = pyautogui.locateCenterOnScreen('img/klan_red.png', confidence=0.9)
     pos_settings = pyautogui.locateCenterOnScreen('img/shesternya.png', confidence=0.9)
     if pos_klan is not None:
@@ -72,7 +73,7 @@ def new_analysis():
 def end_obysk():
     pyautogui.moveTo(200, 670)
     sleep(1)
-    vyxod = pyautogui.locateCenterOnScreen('img/b_vyxod.png', confidence=0.9)
+    vyxod = pyautogui.locateCenterOnScreen('img/b_exit.png', confidence=0.9)
     pyautogui.moveTo(vyxod, duration=1, tween=pyautogui.easeInOutQuad)
     pyautogui.click(vyxod)
     print('клик на выход')
@@ -84,14 +85,12 @@ def foto(put_imya, _region):
 
 
 def tent_raid():
-
     region = detect_region_poiska()
     pos_vip = pyautogui.locateCenterOnScreen('img/b_vip.png', region=region, confidence=0.8)
     while pos_vip is None:
         new_analysis()
         region = detect_region_poiska()
         pos_vip = pyautogui.locateCenterOnScreen('img/b_vip.png', region=region, confidence=0.8)
-
     vip_detected()
     dom = pyautogui.locateCenterOnScreen('img/b_dom.png', confidence=0.9)
     while dom is None:
@@ -100,7 +99,6 @@ def tent_raid():
     print(' дом найден')
     dom_detected(region)
     vip_result = obysk()
-
     return vip_result
 #
 # snimok_region = 'img/test/region_poiska_vip.png'
