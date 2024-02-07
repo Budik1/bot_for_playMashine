@@ -15,7 +15,7 @@ def foto(path_name, _region):
 
 
 def foto_pos(name_img: str, region: tuple, tune_x=0, tune_y=0, tune_s=0, tune_v=0):
-    """Получает регион и корректирует регион снимка"""
+    """Получает имя файла, регион и корректирует (если надо) регион снимка"""
     x_p_oan, y_p_oan, width, height = region
     x_s = x_p_oan + tune_x
     y_s = y_p_oan + tune_y
@@ -25,18 +25,20 @@ def foto_pos(name_img: str, region: tuple, tune_x=0, tune_y=0, tune_s=0, tune_v=
 
 
 def create_img_arena_object():
+    """Создаёт скрин arena_object из зала славы"""
     pos_or_v = find_link()  # ориентир на зал славы
     pyautogui.moveTo(pos_or_v)
-    print(pos_or_v)
+    # print(pos_or_v)
     move_to_click(pos_or_v, 0.3)  # открыть зал славы
     pyautogui.moveTo(pos_or_v[0] - 678, pos_or_v[1] + 144)
     sleep(1)
-    step = 68
-    region = (pos_or_v[0] - 678, pos_or_v[1] + 74 + (step * 1), 368, 80)
-    tune_x = 73  #
-    tune_y = 7  #
-    tune_s = 243  # 21 с увеличением регион уменьшается
-    tune_v = 20  #
+    region = (pos_or_v[0] - 678, pos_or_v[1] + 142, 368, 80)
+    # смещение внутри региона верхней левой точки на параметры (с увеличением смещение увеличивается)
+    tune_x = 73
+    tune_y = 7
+    # смещение внутри региона правой нижней точки на параметр (с увеличением размер уменьшается)
+    tune_s = 243
+    tune_v = 20
     foto_pos('img/test/arena_object.png', region, tune_x, tune_y, tune_s, tune_v)
 
 
@@ -71,14 +73,14 @@ def kill():
 
         while arena_object is None:
             region = const_region
-            # Если не найден раньше ищем со смещением списока в начало
+            # Если не найден раньше ищем со смещением списка в начало
             while scroll_up is not None and arena_object is None:
                 move_to_click(scroll_up, 0.5)
                 pyautogui.moveTo(174, 260)
                 scroll_up = pyautogui.locateCenterOnScreen('img/scroll_up.png', confidence=0.9)
                 arena_object = pyautogui.locateCenterOnScreen("img/test/arena_object.png", region=region,
                                                               confidence=0.85)
-            if arena_object is None:  # Если не найден раньше ищем со смещением списока в конец
+            if arena_object is None:  # Если не найден раньше ищем со смещением списка в конец
                 scroll_down = pyautogui.locateCenterOnScreen('img/scroll_down.png', confidence=0.9)
                 move_to_click(scroll_down, 0.3)
                 arena_object = pyautogui.locateCenterOnScreen("img/test/arena_object.png", region=region,
@@ -90,7 +92,6 @@ def kill():
         foto(name_file, region)
         attack_arena_object = pyautogui.locateCenterOnScreen('img/attack.png', confidence=0.9, region=region)
         pyautogui.moveTo(attack_arena_object)
-        # sleep()
         move_to_click(attack_arena_object, 0.5)
         hero_vs_opponent = pyautogui.locateCenterOnScreen('img/hero_vs_opponent.png', confidence=0.9)
         while hero_vs_opponent is None:

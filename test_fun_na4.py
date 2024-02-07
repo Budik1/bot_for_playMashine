@@ -8,7 +8,7 @@ son = 0.9
 zadergka = 2
 par_conf = 0.8
 # xp_imag = ['img/23xp.png', 'img/45xp.png', 'img/68xp.png', 'img/90xp.png', 'img/113xp.png']
-nali4ie_energii = 1
+energy_availability = 1
 koli4estvo_zadaniy = 1
 shirina, vysota = 87, 39
 variable = ' pust '
@@ -17,10 +17,10 @@ region1, region2, region3 = 0, 0, 0
 
 def na4stanc():
     # заходит в палатку к начстанции
-    # print('na4stanc')
-    proverka = pyautogui.locateCenterOnScreen('img/na4_stanc.png', confidence=0.9)
+    # print('na4_stanc')
+    proverka = pyautogui.locateCenterOnScreen('img/station_master.png', confidence=0.9)
     if proverka is not None:
-        na4 = pyautogui.locateCenterOnScreen('img/na4_stanc.png', confidence=par_conf)
+        na4 = pyautogui.locateCenterOnScreen('img/station_master.png', confidence=par_conf)
         # proverka_None(na4)
         pyautogui.moveTo(na4, duration=1, tween=pyautogui.easeInOutQuad)
         # print(" уже у начальника ")
@@ -38,7 +38,7 @@ def na4stanc():
         move_to_click(pos_or1, 0.2)
         # print('зашел к начальнику')
         sleep(son)
-        na4 = pyautogui.locateCenterOnScreen('img/na4_stanc.png', confidence=par_conf)
+        na4 = pyautogui.locateCenterOnScreen('img/station_master.png', confidence=par_conf)
         # proverka_None(na4)
         pyautogui.moveTo(na4, duration=1, tween=pyautogui.easeInOutQuad)
 
@@ -87,8 +87,8 @@ def boy_v_puti(nom_zadanie):
     # дождаться "пропустить бой", нажать собаку если активна, закрыть бой
     # print('v_puti', nom_zadanie)
     boy_end = pyautogui.locateCenterOnScreen('img/b_boy_end.png', confidence=par_conf)
-    propusk_boy = pyautogui.locateCenterOnScreen('img/propustit_boy.png', confidence=par_conf)
-    sobaka = pyautogui.locateCenterOnScreen('img/sobaka.png', confidence=par_conf)
+    propusk_boy = pyautogui.locateCenterOnScreen('img/skip_fight.png', confidence=par_conf)
+    sobaka = pyautogui.locateCenterOnScreen('img/dog.png', confidence=par_conf)
     while boy_end is None:
         # print(boy_end, 'boy_end')
         # print('пропуск боя', propusk_boy)
@@ -101,8 +101,8 @@ def boy_v_puti(nom_zadanie):
         sleep(son * zadergka)
         boy_end = pyautogui.locateCenterOnScreen('img/b_boy_end.png', confidence=par_conf)
         zakryt = pyautogui.locateCenterOnScreen('img/close.png', confidence=par_conf)
-        sobaka = pyautogui.locateCenterOnScreen('img/sobaka.png', confidence=par_conf)
-        propusk_boy = pyautogui.locateCenterOnScreen('img/propustit_boy.png', confidence=par_conf)
+        sobaka = pyautogui.locateCenterOnScreen('img/dog.png', confidence=par_conf)
+        propusk_boy = pyautogui.locateCenterOnScreen('img/skip_fight.png', confidence=par_conf)
         if boy_end is not None and zakryt is not None:  # нажать закрыть в конце боя
             # print(boy_end, 'boy 1')
             # print(push_close, 'push_close 1')
@@ -112,7 +112,7 @@ def boy_v_puti(nom_zadanie):
 
 
 def press_en(nomer_zadaniya, pos):
-    global nali4ie_energii
+    global energy_availability
     if nomer_zadaniya == 1:
         x = pos[0]
         y = pos[1]- 20
@@ -137,7 +137,7 @@ def press_en(nomer_zadaniya, pos):
 
     move_to_click(pos_clik, 1.5)
     sleep(0.5)
-    nal_energii = pyautogui.locateCenterOnScreen('img/malo_energii.png', confidence=0.8)
+    nal_energii = pyautogui.locateCenterOnScreen('img/low_energy.png', confidence=0.8)
     # print(" не хватает энергии", nal_energii)
     if nal_energii is None:
         print('Выполняю ', nomer_zadaniya, ' задание')
@@ -151,12 +151,12 @@ def press_en(nomer_zadaniya, pos):
 
 
 def analiz_zadaniy(img1, img2, region):
-    # print('analiz_zadaniy')
+    # print('task_analysis')
     # print( region) # полученный region
     global variable
     # print('вызов na4Stanc в анализе')
     na4stanc()
-    # print('в analiz_zadaniy conf =', conf)
+    # print('в task_analysis conf =', conf)
     variant1 = pyautogui.locateCenterOnScreen(img1, confidence=conf, region=region)
     # print(variant1, 'variant1')
     variant2 = pyautogui.locateCenterOnScreen(img2, confidence=conf, region=region)
@@ -198,23 +198,23 @@ def data_station():
 def vybor_zadaniya_na_puli():
     xp_imag = data_station()
     region1, region2, region3 = orientir()
-    global nali4ie_energii, koli4estvo_zadaniy, conf
+    global energy_availability, koli4estvo_zadaniy, conf
     while nali4ie_energii == 1 and koli4estvo_zadaniy > 0:
-        # print('вызов analiz_zadaniy из vybor_zadaniya_na_puli')
+        # print('вызов task_analysis из vybor_zadaniya_na_puli')
         analiz_zadaniy(xp_imag[0], xp_imag[1], region1)
         variant1 = variable
         # print('variant1 = ', variant1)
         move(variant1)
         sleep(0.1)
 
-        # print('вызов analiz_zadaniy из vybor_zadaniya_na_puli')
+        # print('вызов task_analysis из vybor_zadaniya_na_puli')
         analiz_zadaniy(xp_imag[2], xp_imag[3], region2)
         variant2 = variable
         # print('variant2 = ', variant2)
         move(variant2)
         sleep(0.1)
 
-        # print('вызов analiz_zadaniy из vybor_zadaniya_na_puli')
+        # print('вызов task_analysis из vybor_zadaniya_na_puli')
         analiz_zadaniy(xp_imag[4], xp_imag[5], region3)
         variant3 = variable
         # print('variant3 = ', variant3)
@@ -241,7 +241,7 @@ def vybor_zadaniya_na_puli():
         zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
 
 def en_nomer_zadaniya(nomer_zadaniya):
-    global nali4ie_energii, koli4estvo_zadaniy, conf
+    global energy_availability, koli4estvo_zadaniy, conf
     region1, region2, region3 = orientir()
     if nomer_zadaniya == 1:
         region = region1

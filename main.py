@@ -7,15 +7,12 @@ import turist
 import person
 import obysk
 
-
 im_en1 = [1, 'img/en1v2.png', 'img/23xp.png']
 # im_en2 = [2, 'img/en2v2.png', 'img/45xp.png']
 # im_en3 = [3, 'img/en3v2.png', 'img/68xp.png']
 status_bonus = "0"
 # status_vip = 10
 sum_krys = 0
-
-
 
 
 def bonus():
@@ -25,15 +22,19 @@ def bonus():
 def en_1():
     fun_na4.en_nomer_zadaniya(1)
 
+
 def en_2():
     fun_na4.en_nomer_zadaniya(2)
+
 
 def en_3():
     fun_na4.en_nomer_zadaniya(3)
 
-def dvizh():
+
+def dvizh_test():
     sum_krys = turist.test()
     status_krysa.set(sum_krys)
+
 
 def obysk_vip():
     fun.shmon()
@@ -45,15 +46,13 @@ def obysk_vip():
 #     while status_vip < 10:
 
 
-
-
 root = Tk()
 
 root.title(' помощник ')
-root.geometry("350x380+1240+50")  # Ширина x Высота + координатаX + координатаY
+root.geometry("327x380+1240+50")  # Ширина x Высота + координатаX + координатаY
 root.resizable(False, False)
 
-status_kiki= IntVar(value=0)
+status_kiki = IntVar(value=0)
 status_krysa = StringVar(value='0')
 status_vip = StringVar(value='0')
 
@@ -70,17 +69,20 @@ ttk.Button(text="кикиморы", width=11, command=turist.za_kikimorami).plac
 ttk.Label(textvariable=status_kiki, background="#FFCDD2", foreground="#B71C1C", padding=4).place(x=263, y=31)
 ttk.Button(text="Паук + Ящер", width=11, command=turist.pauk_yascher).place(x=153, y=0)
 
-ttk.Button(text="most_frunze", width=11, command=turist.most_frunze).place(x=242, y=277)
-ttk.Button(text="frunze_most", width=11, command=turist.frunze_most).place(x=242, y=308)
-ttk.Button(text="test гардероб", width=11, command=person.pereodevanie).place(x=185, y=246)
-ttk.Button(text="most_riga", width=11, command=turist.most_riga).place(x=133, y=277)
-ttk.Button(text="riga_most", width=11, command=turist.riga_most).place(x=242, y=339)
-ttk.Button(text="frunze_riga", width=11, command=turist.most_riga).place(x=133, y=308)
-ttk.Button(text="riga_frunze", width=11, command=turist.riga_most).place(x=133, y=339)
+ttk.Button(text="test гардероб", width=11, command=person.pereodevanie).place(x=109, y=245)
+
+ttk.Button(text="most_frunze", width=11, command=turist.most_frunze).place(x=218, y=277)
+ttk.Button(text="frunze_most", width=11, command=turist.frunze_most).place(x=218, y=308)
+
+ttk.Button(text="most_riga", width=11, command=turist.most_riga).place(x=109, y=277) # x=133
+ttk.Button(text="riga_most", width=11, command=turist.riga_most).place(x=109, y=308)
+
+ttk.Button(text="frunze_riga", width=11, command=turist.frunze_riga).place(x=0, y=277)
+ttk.Button(text="riga_frunze", width=11, command=turist.riga_frunze).place(x=0, y=308)
 
 ttk.Button(text="задания на Киевской", width=17, command=turist.zadaniya_na_Kievskoy).place(x=120, y=138)
 # тест пробежка
-ttk.Button(text="тест пробежка", width=13, command=dvizh).place(x=153, y=64)
+ttk.Button(text="тест пробежка", width=13, command=dvizh_test).place(x=153, y=64)
 ttk.Label(textvariable=status_krysa, background="#FFCDD2", foreground="#0000FF", padding=4).place(x=285, y=64)
 ttk.Button(text="обход всех станций", width=16, command=turist.sbor_podarkov).place(x=153, y=96)
 

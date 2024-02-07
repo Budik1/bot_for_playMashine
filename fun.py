@@ -2,12 +2,12 @@ import pyautogui
 from time import sleep, time
 import datetime
 
-son = 1
+# son = 1
 zadergka = 10
 sum_vip = 0
 status_bonus = "0"
 par_conf = 0.79
-nali4ie_energii = 1
+energy_availability = 1
 koli4estvo_zadaniy = 3
 oblast = (51, 707, 92, 111)
 img_sl = {'спецпредложение': 'img/spec_predlog.png', 'закрыть в спецпредложении': 'img/s_p_zakr.png',
@@ -43,11 +43,11 @@ def podapok():
     while otkryt is not None:
         pyautogui.moveTo(otkryt, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.click(otkryt)
-        sleep(son)
+        sleep(1)
         spasib = pyautogui.locateCenterOnScreen('img/b_p_spasibo.png', confidence=0.9)
         pyautogui.moveTo(spasib, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.click(spasib)
-        sleep(son)
+        sleep(1)
         podar = pyautogui.locateCenterOnScreen('img/b_p_podarit.png', confidence=0.85)
         print(podar)
         pyautogui.moveTo(podar, duration=1, tween=pyautogui.easeInOutQuad)
@@ -63,7 +63,7 @@ def push_close():
         # print(push_close)
         pyautogui.moveTo(pos_close, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.click(pos_close)
-        sleep(son)
+        sleep(1)
         pos_close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
 
 
@@ -71,9 +71,9 @@ def bonus():
     # кнопка добавить
     pos_bonus = pyautogui.locateCenterOnScreen('img/dobavit.png', confidence=0.8)
     pyautogui.moveTo(pos_bonus, duration=1, tween=pyautogui.easeInOutQuad)
-    sleep(son)
+    sleep(1)
     pyautogui.click(pos_bonus)
-    sleep(son * 2)
+    sleep(2)
     # кнопка забрать
     bonus = pyautogui.locateCenterOnScreen('img/zabrat.png', confidence=0.9)
     if bonus:  # != None:
@@ -97,18 +97,18 @@ def zapusk():
         if spec is not None:
             s_p_zakr = pyautogui.locateCenterOnScreen('img/s_p_zakr.png', confidence=0.96)
             while s_p_zakr is not None and sz <= 5:
-                sleep(son * 2)
+                sleep(2)
                 s_p_zakr = pyautogui.locateCenterOnScreen('img/s_p_zakr.png', confidence=0.96)
                 sz += 1
             pyautogui.click(s_p_zakr)
 
     def authorization():  # авторизация при необходимости
-        sleep(son * 2)
+        sleep(2)
         pos_autoriz = pyautogui.locateCenterOnScreen('img/b_autoriz.png', confidence=0.8)
         if pos_autoriz is not None:
             pyautogui.moveTo(pos_autoriz, duration=1, tween=pyautogui.easeInOutQuad)
             pyautogui.click(pos_autoriz)
-            sleep(son * 2)
+            sleep(2)
 
     # клик по кнопке "мои игры"
     def click_my_game():
@@ -132,7 +132,7 @@ def zapusk():
             print('Не найдено кнопки "My game"')
             im1 = pyautogui.screenshot('img/screen1.png')
             im1.save('img/screen1.png')
-            sleep(son * 2)
+            sleep(2)
         pos_autoriz = pyautogui.locateCenterOnScreen('img/b_autoriz.png', confidence=0.8)
         if pos_autoriz is not None:
             authorization()
@@ -140,15 +140,15 @@ def zapusk():
     # клик на запуск игры
     def click_icon_game():
         p_i = 0
-        # sleep(son * 2)
+        # sleep(2)
         pos_icon_game = pyautogui.locateCenterOnScreen('img/icon_game.png', confidence=0.8)
         while pos_icon_game is None and p_i <= 100:
             p_i += 1
             print('p_i = ' + str(p_i))
-            sleep(son)
+            sleep(1)
             pos_icon_game = pyautogui.locateCenterOnScreen('img/icon_game.png', confidence=0.8)
         pyautogui.click(pos_icon_game)
-        sleep(son)
+        sleep(1)
 
     def geography():
         # растягивание вверх
@@ -186,11 +186,11 @@ def press_right_button():
     Сместить список друзей в лево
     :return: 1
     """
-    sleep(son)
+    sleep(1)
     ar_right = pyautogui.locateCenterOnScreen('img/b_arrow_right.png', confidence=0.8)
     pyautogui.moveTo(ar_right, duration=1, tween=pyautogui.easeInOutQuad)
     pyautogui.click(ar_right)
-    sleep(son)
+    sleep(1)
     return 1
 
 
@@ -199,11 +199,11 @@ def press_left_button():
     Сместить список друзей в право
     :return: 1
     """
-    sleep(son)
+    sleep(1)
     ar_right = pyautogui.locateCenterOnScreen('img/b_arrow_left.png', confidence=0.8)
     pyautogui.moveTo(ar_right, duration=1, tween=pyautogui.easeInOutQuad)
     pyautogui.click(ar_right)
-    sleep(son)
+    sleep(1)
     return 1
 
 
@@ -212,11 +212,11 @@ def vna4flo():
     if begin is not None:  # если увидел
         pyautogui.moveTo(begin, duration=1, tween=pyautogui.easeInOutQuad)
         print(' перемотка в начало ')
-        sleep(son)
+        sleep(1)
         pyautogui.click(begin)
         print('клик в начало ' + str(begin))
     pyautogui.moveTo(50, 600, duration=1, tween=pyautogui.easeInOutQuad)
-    sleep(son)
+    sleep(1)
 
 
 def shmon():
@@ -262,25 +262,25 @@ def shmon():
         return vip
 
     def dom_detected():
-        sleep(son)
+        sleep(1)
         dom = pyautogui.locateCenterOnScreen('img/b_dom.png', confidence=0.9)
         pyautogui.moveTo(dom, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.click(dom)
         # print('клик по дом ' + str(dom))
-        sleep(son)
+        sleep(1)
 
     def vip_detected():
         region_poiska = detect_search_region()
-        sleep(son)
+        sleep(1)
         pos_vip = pyautogui.locateCenterOnScreen('img/b_vip.png', region=region_poiska, confidence=0.8)
         pyautogui.moveTo(pos_vip, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.click(pos_vip)
         # print('клик по VIP ' + str(pos_vip))
-        sleep(son)
+        sleep(1)
 
     def end_obysk():
         pyautogui.moveTo(200, 670)
-        sleep(son)
+        sleep(1)
         to_exit = pyautogui.locateCenterOnScreen('img/b_exit.png', confidence=0.9)
         pyautogui.moveTo(to_exit, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.click(to_exit)

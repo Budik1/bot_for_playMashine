@@ -13,10 +13,10 @@ def foto(put_imya, _region):
 
 def na4Stanc():
     # print('na4Stanc')
-    proverka = pyautogui.locateCenterOnScreen('img/na4_stanc.png', confidence=0.9)
-    # print(proverka, "proverka наличия 'img/na4_stanc.png'")
+    proverka = pyautogui.locateCenterOnScreen('img/station_master.png', confidence=0.9)
+    # print(proverka, "proverka наличия 'img/station_master.png'")
     if proverka is not None:
-        na4 = pyautogui.locateCenterOnScreen('img/na4_stanc.png', confidence=par_conf)
+        na4 = pyautogui.locateCenterOnScreen('img/station_master.png', confidence=par_conf)
         # print(na4)
         # proverka_None(na4)
         pyautogui.moveTo(na4, duration=1, tween=pyautogui.easeInOutQuad)
@@ -35,7 +35,7 @@ def na4Stanc():
         move_to_click(pos_or1, 0.1)
         # print('зашел к начальнику')
         sleep(son)
-        na4 = pyautogui.locateCenterOnScreen('img/na4_stanc.png', confidence=par_conf)
+        na4 = pyautogui.locateCenterOnScreen('img/station_master.png', confidence=par_conf)
         # proverka_None(na4)
         pyautogui.moveTo(na4, duration=1, tween=pyautogui.easeInOutQuad)
 

@@ -86,7 +86,7 @@ def tunnel_events(st0, st2):
         post = pyautogui.locateCenterOnScreen('img/tonelli/post.png', confidence=0.8)
         krysa = pyautogui.locateCenterOnScreen('img/tonelli/krysa.png', confidence=0.85)
         kiki = pyautogui.locateCenterOnScreen('img/tonelli/kikimora.png', confidence=0.85)
-        propusk_boy = pyautogui.locateCenterOnScreen('img/propustit_boy.png', confidence=0.79)
+        propusk_boy = pyautogui.locateCenterOnScreen('img/skip_fight.png', confidence=0.79)
         if propusk_boy is not None:
             if krysa is not None:
                 number_of_krysa += 1
@@ -163,7 +163,7 @@ def peredvizgenie(kuda_idti: list):
 def test():
     global number_of_krysa
     push_close()
-    peredvizgenie(b_d.test_probezgka)
+    peredvizgenie(b_d.test_running)
     print("тест успешно выполнен")
     return number_of_krysa
 
@@ -276,6 +276,32 @@ def frunze_kiev():
     minuty = int(finish_time // 60)  # количество минут
     seconds = round((finish_time % minuty), 2)
     print('Потрачено время', minuty, 'минут', seconds, 'сек.')
+
+
+def frunze_riga():
+    """Маршрут Фрунзенская"""
+    start_time = time()
+    push_close()
+    peredvizgenie(b_d.frunze_riga)
+    print("вернулся домой")
+    finish_time = float(time() - start_time)  # общее количество секунд
+    minuty = int(finish_time // 60)  # количество минут
+    seconds = round((finish_time % minuty), 2)
+    print('Потрачено время', minuty, ' минут', seconds, ' сек.')
+
+
+def riga_frunze():
+    """Маршрут  Фрунзенская"""
+    start_time = time()
+    push_close()
+    peredvizgenie(b_d.riga_frunze)
+    print("вернулся домой")
+    finish_time = float(time() - start_time)  # общее количество секунд
+    minuty = int(finish_time // 60)  # количество минут
+    seconds = round((finish_time % minuty), 2)
+    print('Потрачено время', minuty, ' минут', seconds, ' сек.')
+
+
 
 
 def za_kikimorami():
