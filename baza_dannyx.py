@@ -58,12 +58,12 @@ riga_frunze = [prospekt, suxarev, turgenev, kitay, tretya, novok, teatr,
                tver, сhekhov, borov, biblioteka, kropot, park_kr, frunze]
 
 # оббежать все станции в поисках подарков
-beg_po_krugu = [pushkin, tver, teatr, novok, pavelec, pavelec_g, pavelec, novok, tretya, kitay, turgenev, suxarev,
-                prospekt, riga, alexs, vdnx,
-                alexs, riga, prospekt, suxarev, turgenev, kitay, tretya, novok, teatr, tver, сhekhov,
-                bulvar, сhekhov, borov, polyanka, borov, biblioteka, kropot, park_kr, frunze, communist,
-                frunze, park_kr, park_g, kiev, kiev_a,
-                kiev, park_g, park_kr, kropot, biblioteka, borov, сhekhov, pushkin, most]
+bypass = [pushkin, tver, teatr, novok, pavelec, pavelec_g, pavelec, novok, tretya, kitay, turgenev, suxarev,
+          prospekt, riga, alexs, vdnx,
+          alexs, riga, prospekt, suxarev, turgenev, kitay, tretya, novok, teatr, tver, сhekhov,
+          bulvar, сhekhov, borov, polyanka, borov, biblioteka, kropot, park_kr, frunze, communist,
+          frunze, park_kr, park_g, kiev, kiev_a,
+          kiev, park_g, park_kr, kropot, biblioteka, borov, сhekhov, pushkin, most]
 
 # за кикиморами в туннелях
 most_kikimory = [pushkin, tver, teatr, novok, tretya, kitay,

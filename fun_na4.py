@@ -7,9 +7,8 @@ conf = 0.97
 # son = 0.9
 
 par_conf = 0.8
-# xp_imag = ['img/23xp.png', 'img/45xp.png', 'img/68xp.png', 'img/90xp.png', 'img/113xp.png']
 energy_availability = 1
-koli4estvo_zadaniy = 1
+number_tasks = 1
 width, height = 87, 39
 variable = None
 region1, region2, region3 = 0, 0, 0
@@ -43,7 +42,7 @@ def station_master():
         pyautogui.moveTo(na4, duration=1, tween=pyautogui.easeInOutQuad)
 
 
-def orientir():
+def benchmark():
     """ Получение значений "region=" для поиска заданий """
     #
     # закрыть если открыто
@@ -83,34 +82,34 @@ def orientir():
     return region_1, region_2, region_3
 
 
-def enemy_attack(delay=2):
-    '''
+def enemy_battle(delay=2):
+    """
     Событие атаки противника
     :param delay:
-    '''
+    """
     # дождаться "пропустить бой", нажать собаку если активна, закрыть бой
     # print('v_puti')
-    boy_end = pyautogui.locateCenterOnScreen('img/b_boy_end.png', confidence=par_conf)
-    skip_fight = pyautogui.locateCenterOnScreen('img/skip_fight.png', confidence=par_conf)
+    battle_end = pyautogui.locateCenterOnScreen('img/b_battle_end.png', confidence=par_conf)
+    skip_battle = pyautogui.locateCenterOnScreen('img/skip_battle.png', confidence=par_conf)
     dog = pyautogui.locateCenterOnScreen('img/dog.png', confidence=par_conf)
     it = 0
-    while boy_end is None:
-        # print(boy_end, 'boy_end')
-        # print('пропуск боя', skip_fight)
+    while battle_end is None:
+        # print(battle_end, 'battle_end')
+        # print('пропуск боя', skip_battle)
         if dog is not None:  # нажать "на собаку"
             # print(dog, 'dog')
             move_to_click(dog, 0.1)
         # print(it)
-        if skip_fight is not None and it >= 2:  # нажать "пропустить бой"
-            move_to_click(skip_fight, 0.5)
-            # print(skip_fight, 'skip_fight')
+        if skip_battle is not None and it >= 2:  # нажать "пропустить бой"
+            move_to_click(skip_battle, 0.5)
+            # print(skip_battle, 'skip_battle')
         it += 1
         sleep(1 * delay)
-        boy_end = pyautogui.locateCenterOnScreen('img/b_boy_end.png', confidence=par_conf)
+        battle_end = pyautogui.locateCenterOnScreen('img/b_battle_end.png', confidence=par_conf)
         close = pyautogui.locateCenterOnScreen('img/close.png', confidence=par_conf)
         dog = pyautogui.locateCenterOnScreen('img/dog.png', confidence=par_conf)
-        skip_fight = pyautogui.locateCenterOnScreen('img/skip_fight.png', confidence=par_conf)
-        if boy_end is not None and close is not None:  # нажать закрыть в конце боя
+        skip_battle = pyautogui.locateCenterOnScreen('img/skip_battle.png', confidence=par_conf)
+        if battle_end is not None and close is not None:  # нажать закрыть в конце боя
             move_to_click(close, 0.2)
             sleep(0.5)
 
@@ -128,7 +127,7 @@ def press_en(task_number, pos):
     # print(" не хватает энергии", nal_energy)
     if not nal_energy:
         print('Выполняю ', task_number, ' задание')
-        enemy_attack()
+        enemy_battle()
     else:
         energy_availability = 0
         print(' Энергия закончилась!!')
@@ -160,17 +159,17 @@ def task_analysis(img1, img2, region):
         variable = variant1
     else:
         variable = variant2
-    return (variable)
+    return variable
 
 
 def move(pos):
-    if pos is not None:
+    if pos:
         pyautogui.moveTo(pos, duration=1)
         sleep(3)
 
 
 def data_station():
-    # получение списка заданий
+    """ Получение списка заданий """
     it = 0
     n_in_list = 0
     while it < len(b_d.list_of_stations):
@@ -178,80 +177,79 @@ def data_station():
         # print(img_station)
         # print(it, n_in_list)
         pos = pyautogui.locateCenterOnScreen(img_station, confidence=0.9)
-        if pos is not None:
+        if pos:
             it = len(b_d.list_of_stations)
         else:
             n_in_list += 1
             it += 1
-    zadaniya = (b_d.list_of_stations[n_in_list][4])
-    # print(img_station)
-    # print(zadaniya)
-    return zadaniya
+    task_options = (b_d.list_of_stations[n_in_list][4])
+    # print(task_options)
+    return task_options
 
 
 def vybor_zadaniya_na_puli():
-    xp_imag = data_station()
-    region1, region2, region3 = orientir()
-    global energy_availability, koli4estvo_zadaniy, conf
-    while energy_availability == 1 and koli4estvo_zadaniy > 0:
+    global energy_availability, number_tasks, conf
+    xp_img = data_station()
+    region_1, region_2, region_3 = benchmark()
+    while energy_availability == 1 and number_tasks > 0:
         # print('вызов task_analysis из vybor_zadaniya_na_puli')
-        task_analysis(xp_imag[0], xp_imag[1], region1)
+        task_analysis(xp_img[0], xp_img[1], region_1)
         variant1 = variable
         # print('variant1 = ', variant1)
         move(variant1)
         sleep(0.1)
 
         # print('вызов task_analysis из vybor_zadaniya_na_puli')
-        task_analysis(xp_imag[2], xp_imag[3], region2)
+        task_analysis(xp_img[2], xp_img[3], region_2)
         variant2 = variable
         # print('variant2 = ', variant2)
         move(variant2)
         sleep(0.1)
 
         # print('вызов task_analysis из vybor_zadaniya_na_puli')
-        task_analysis(xp_imag[4], xp_imag[5], region3)
+        task_analysis(xp_img[4], xp_img[5], region_3)
         variant3 = variable
         # print('variant3 = ', variant3)
         move(variant3)
         sleep(0.1)
 
-        if variant1 is not None:
-            press_en(1, region1)
-        if variant2 is not None:
-            press_en(2, region2)
-        if variant3 is not None:
-            press_en(3, region3)
+        if variant1:
+            press_en(1, region_1)
+        if variant2:
+            press_en(2, region_2)
+        if variant3:
+            press_en(3, region_3)
 
         if variant1 == variant2 == variant3:
             print('confidence=', conf)
             conf -= 0.01
 
     print(' Задания выполнены!!!!')
-    koli4estvo_zadaniy = 1
+    number_tasks = 1
     energy_availability = 1
-    zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
-    while zakr is not None:
-        move_to_click(zakr, 0.3)
-        zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
+    close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
+    while close:
+        move_to_click(close, 0.3)
+        close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
 
 
-def en_nomer_zadaniya(nomer_zadaniya):
-    global energy_availability, koli4estvo_zadaniy, conf
-    region1, region2, region3 = orientir()
-    if nomer_zadaniya == 1:
-        region = region1
-    elif nomer_zadaniya == 2:
-        region = region2
+def en_task_number(task_number):
+    global energy_availability, number_tasks, conf
+    region_1, region_2, region_3 = benchmark()
+    if task_number == 1:
+        region = region_1
+    elif task_number == 2:
+        region = region_2
     else:
-        region = region3
+        region = region_3
 
-    while energy_availability == 1 and koli4estvo_zadaniy > 0:
+    while energy_availability == 1 and number_tasks > 0:
         station_master()
-        press_en(nomer_zadaniya, region)
+        press_en(task_number, region)
     print(' Задания выполнены!!!!')
-    koli4estvo_zadaniy = 1
+    number_tasks = 1
     energy_availability = 1
-    zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
-    while zakr is not None:
-        move_to_click(zakr, 0.3)
-        zakr = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
+    close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
+    while close:
+        move_to_click(close, 0.3)
+        close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)

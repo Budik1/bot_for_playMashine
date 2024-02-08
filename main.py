@@ -20,15 +20,15 @@ def bonus():
 
 
 def en_1():
-    fun_na4.en_nomer_zadaniya(1)
+    fun_na4.en_task_number(1)
 
 
 def en_2():
-    fun_na4.en_nomer_zadaniya(2)
+    fun_na4.en_task_number(2)
 
 
 def en_3():
-    fun_na4.en_nomer_zadaniya(3)
+    fun_na4.en_task_number(3)
 
 
 def dvizh_test():
@@ -80,7 +80,7 @@ ttk.Button(text="riga_most", width=11, command=turist.riga_most).place(x=109, y=
 ttk.Button(text="frunze_riga", width=11, command=turist.frunze_riga).place(x=0, y=277)
 ttk.Button(text="riga_frunze", width=11, command=turist.riga_frunze).place(x=0, y=308)
 
-ttk.Button(text="задания на Киевской", width=17, command=turist.zadaniya_na_Kievskoy).place(x=120, y=138)
+ttk.Button(text="задания на Киевской", width=17, command=turist.tasks_na_kievskoy).place(x=120, y=138)
 # тест пробежка
 ttk.Button(text="тест пробежка", width=13, command=dvizh_test).place(x=153, y=64)
 ttk.Label(textvariable=status_krysa, background="#FFCDD2", foreground="#0000FF", padding=4).place(x=285, y=64)

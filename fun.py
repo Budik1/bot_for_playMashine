@@ -8,10 +8,10 @@ sum_vip = 0
 status_bonus = "0"
 par_conf = 0.79
 energy_availability = 1
-koli4estvo_zadaniy = 3
+number_tasks = 3
 oblast = (51, 707, 92, 111)
-img_sl = {'спецпредложение': 'img/spec_predlog.png', 'закрыть в спецпредложении': 'img/s_p_zakr.png',
-          'продолжить как Гаврил': 'img/b_autoriz.png',
+img_sl = {'спецпредложение': 'img/spec_proposal.png', 'закрыть в спецпредложении': 'img/s_p_close.png',
+          'продолжить как Гаврил': 'img/authorization_button.png',
           'мои игры V1': 'img/my_game1.png', 'мои игры V2': 'img/my_game2.png',
           'иконка на рабочем столе': 'img/icon_in_desktop.png'}
 iter_detect_search_region = 0
@@ -35,31 +35,31 @@ def time_now():
 
 def podapok():
     '''Обмен ежедневными подарками'''
-    podarok = pyautogui.locateCenterOnScreen('img/b_pod.png', confidence=0.91)
-    pyautogui.moveTo(podarok, duration=1, tween=pyautogui.easeInOutQuad)
-    pyautogui.click(podarok)
+    gifts = pyautogui.locateCenterOnScreen('img/b_gifts.png', confidence=0.91)
+    pyautogui.moveTo(gifts, duration=1, tween=pyautogui.easeInOutQuad)
+    pyautogui.click(gifts)
 
-    otkryt = pyautogui.locateCenterOnScreen('img/b_p_otkr.png', confidence=0.9)
-    while otkryt is not None:
-        pyautogui.moveTo(otkryt, duration=1, tween=pyautogui.easeInOutQuad)
-        pyautogui.click(otkryt)
+    open = pyautogui.locateCenterOnScreen('img/b_gift_open.png', confidence=0.9)
+    while open:
+        pyautogui.moveTo(open, duration=1, tween=pyautogui.easeInOutQuad)
+        pyautogui.click(open)
         sleep(1)
-        spasib = pyautogui.locateCenterOnScreen('img/b_p_spasibo.png', confidence=0.9)
-        pyautogui.moveTo(spasib, duration=1, tween=pyautogui.easeInOutQuad)
-        pyautogui.click(spasib)
+        thanks = pyautogui.locateCenterOnScreen('img/b_thanks.png', confidence=0.9)
+        pyautogui.moveTo(thanks, duration=1, tween=pyautogui.easeInOutQuad)
+        pyautogui.click(thanks)
         sleep(1)
-        podar = pyautogui.locateCenterOnScreen('img/b_p_podarit.png', confidence=0.85)
-        print(podar)
-        pyautogui.moveTo(podar, duration=1, tween=pyautogui.easeInOutQuad)
-        pyautogui.click(podar)
+        give = pyautogui.locateCenterOnScreen('img/b_give.png', confidence=0.85)
+        print(give)
+        pyautogui.moveTo(give, duration=1, tween=pyautogui.easeInOutQuad)
+        pyautogui.click(give)
 
-        otkryt = pyautogui.locateCenterOnScreen('img/b_p_otkr.png', confidence=0.9)
+        open = pyautogui.locateCenterOnScreen('img/b_gift_open.png', confidence=0.9)
 
 
 def push_close():
     pos_close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
     # print(pos_close)
-    while pos_close is not None:
+    while pos_close:
         # print(push_close)
         pyautogui.moveTo(pos_close, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.click(pos_close)
@@ -69,21 +69,20 @@ def push_close():
 
 def bonus():
     # кнопка добавить
-    pos_bonus = pyautogui.locateCenterOnScreen('img/dobavit.png', confidence=0.8)
-    pyautogui.moveTo(pos_bonus, duration=1, tween=pyautogui.easeInOutQuad)
+    add_bonus = pyautogui.locateCenterOnScreen('img/add.png', confidence=0.8)
+    pyautogui.moveTo(add_bonus, duration=1, tween=pyautogui.easeInOutQuad)
     sleep(1)
-    pyautogui.click(pos_bonus)
+    pyautogui.click(add_bonus)
     sleep(2)
     # кнопка забрать
-    bonus = pyautogui.locateCenterOnScreen('img/zabrat.png', confidence=0.9)
-    if bonus:  # != None:
-        pyautogui.moveTo(bonus, duration=1, tween=pyautogui.easeInOutQuad)
+    take_bonus = pyautogui.locateCenterOnScreen('img/zabrat.png', confidence=0.9)
+    if take_bonus:  # != None:
+        pyautogui.moveTo(take_bonus, duration=1, tween=pyautogui.easeInOutQuad)
         pyautogui.click()
-        print('Бщнус найден')
+        print('Бонус найден')
     else:
-        print('Бщнус не найден')
+        print('Бонус не найден')
     # кнопка закрыть
-    push_close()
     push_close()
 
 
@@ -93,21 +92,21 @@ def zapusk():
 
     def spec_predlog():
         sz = 0
-        spec = pyautogui.locateCenterOnScreen('img/spec_predlog.png', confidence=0.96)
-        if spec is not None:
-            s_p_zakr = pyautogui.locateCenterOnScreen('img/s_p_zakr.png', confidence=0.96)
-            while s_p_zakr is not None and sz <= 5:
+        proposal = pyautogui.locateCenterOnScreen('img/spec_proposal.png', confidence=0.96)
+        if proposal is not None:
+            s_p_close = pyautogui.locateCenterOnScreen('img/s_p_close.png', confidence=0.96)
+            while s_p_close is not None and sz <= 5:
                 sleep(2)
-                s_p_zakr = pyautogui.locateCenterOnScreen('img/s_p_zakr.png', confidence=0.96)
+                s_p_close = pyautogui.locateCenterOnScreen('img/s_p_close.png', confidence=0.96)
                 sz += 1
-            pyautogui.click(s_p_zakr)
+            pyautogui.click(s_p_close)
 
     def authorization():  # авторизация при необходимости
         sleep(2)
-        pos_autoriz = pyautogui.locateCenterOnScreen('img/b_autoriz.png', confidence=0.8)
-        if pos_autoriz is not None:
-            pyautogui.moveTo(pos_autoriz, duration=1, tween=pyautogui.easeInOutQuad)
-            pyautogui.click(pos_autoriz)
+        pos_authorization = pyautogui.locateCenterOnScreen('img/authorization_button.png', confidence=0.8)
+        if pos_authorization is not None:
+            pyautogui.moveTo(pos_authorization, duration=1, tween=pyautogui.easeInOutQuad)
+            pyautogui.click(pos_authorization)
             sleep(2)
 
     # клик по кнопке "мои игры"
@@ -133,7 +132,7 @@ def zapusk():
             im1 = pyautogui.screenshot('img/screen1.png')
             im1.save('img/screen1.png')
             sleep(2)
-        pos_autoriz = pyautogui.locateCenterOnScreen('img/b_autoriz.png', confidence=0.8)
+        pos_autoriz = pyautogui.locateCenterOnScreen('img/authorization_button.png', confidence=0.8)
         if pos_autoriz is not None:
             authorization()
 
@@ -181,9 +180,9 @@ def zapusk():
     spec_predlog()
 
 
-def press_right_button():
+def move_left_friends_list():
     """
-    Сместить список друзей в лево
+    Смещает список друзей в лево на одну позицию
     :return: 1
     """
     sleep(1)
@@ -194,9 +193,9 @@ def press_right_button():
     return 1
 
 
-def press_left_button():
+def move_right_friends_list():
     """
-    Сместить список друзей в право
+    Смещает список друзей в право на одну позицию
     :return: 1
     """
     sleep(1)
@@ -207,7 +206,8 @@ def press_left_button():
     return 1
 
 
-def vna4flo():
+def move_friends_list_to_top():
+    """Смещает список друзей в лево в начало"""
     begin = pyautogui.locateCenterOnScreen('img/b_begin.png', confidence=0.96)
     if begin is not None:  # если увидел
         pyautogui.moveTo(begin, duration=1, tween=pyautogui.easeInOutQuad)
@@ -288,7 +288,7 @@ def shmon():
         pyautogui.moveTo(200, 670, duration=2, tween=pyautogui.easeInOutQuad)
 
     # ================================================================================================
-    vna4flo()
+    move_friends_list_to_top()
     while vizit < vi:
         pos_vip = pyautogui.locateCenterOnScreen('img/b_vip.png', region=oblast, confidence=0.8)
         analiz += 1
@@ -310,7 +310,7 @@ def shmon():
             dom_detected()
             obysk()
         if vizit < vi:
-            press_right_button()
+            move_left_friends_list()
     end_obysk()
     print('Проанализировано ' + str(analiz) + ' изображений. Найдено ' + str(vizit) + ' VIP ')
     sum_vip = vizit

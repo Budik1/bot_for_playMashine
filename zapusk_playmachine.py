@@ -2,8 +2,8 @@ import pyautogui
 from time import sleep
 
 son = 1
-img_sl = {'спецпредложение':'img/spec_predlog.png', 'закрыть в спецпредложении':'img/s_p_zakr.png',
-          'продолжить как Гаврил':'img/b_autoriz.png',
+img_sl = {'спецпредложение':'img/spec_proposal.png', 'закрыть в спецпредложении':'img/s_p_close.png',
+          'продолжить как Гаврил':'img/authorization_button.png',
           'мои игры V1':'img/my_game1.png','мои игры V2':'img/my_game2.png',
           'иконка на рабочем столе':'img/icon_in_desktop.png'}
 

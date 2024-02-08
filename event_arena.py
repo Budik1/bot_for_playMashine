@@ -1,6 +1,6 @@
 import pyautogui
 from time import sleep
-from fun_na4 import enemy_attack
+from fun_na4 import enemy_battle
 from fun import move_to_click, find_link
 
 
@@ -99,7 +99,7 @@ def kill():
             hero_vs_opponent = pyautogui.locateCenterOnScreen('img/hero_vs_opponent.png', confidence=0.9)
         move_to_click(hero_vs_opponent, 0.3)
         sleep(2)
-        enemy_attack(0.1)
+        enemy_battle(0.1)
 
 
 # create_img_arena_object()  # создание метки объекта атаки
