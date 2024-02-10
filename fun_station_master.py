@@ -20,8 +20,8 @@ def station_master():
     check = pyautogui.locateCenterOnScreen('img/station_master.png', confidence=0.9)
     # if check is not None:
     if check:
-        na4 = pyautogui.locateCenterOnScreen('img/station_master.png', confidence=par_conf)
-        pyautogui.moveTo(na4, duration=1, tween=pyautogui.easeInOutQuad)
+        # na4 = pyautogui.locateCenterOnScreen('img/station_master.png', confidence=par_conf)
+        pyautogui.moveTo(check, duration=1, tween=pyautogui.easeInOutQuad)
         # print(" уже у начальника ")
         sleep(1 / 3)
     else:
@@ -33,7 +33,7 @@ def station_master():
             # print('в поиске клана', pos_klan)
         # print('клан = ', pos_klan)
         x1, y1 = pos_klan
-        x1, y1 = x1 - 60, y1 + 200
+        x1, y1 = x1 - 60, y1 + 300
         pos_klan = x1, y1
         move_to_click(pos_klan, 0.2)
         # print('зашел к начальнику')
@@ -55,7 +55,7 @@ def benchmark():
     sleep(0.5)
     # print(pos_or_v, 'ориентир верх')
     xor_v, yor_v = pos_or_v
-    pos_or_n = pyautogui.locateCenterOnScreen('img/shesternya.png', confidence=0.9)
+    pos_or_n = pyautogui.locateCenterOnScreen('img/setting.png', confidence=0.9)
     # print(pos_or_n, 'ориентир низ')
     xor_n, yor_n = pos_or_n
 

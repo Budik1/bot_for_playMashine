@@ -77,7 +77,7 @@ def geograf():
     pyautogui.dragTo(300, 11, duration=1)
 
     # смещение позунка на 45
-    polzun = pyautogui.locateCenterOnScreen('img/slider_1.png', confidence=0.7)
+    polzun = pyautogui.locateCenterOnScreen('img/slider_v.png', confidence=0.7)
     print(polzun, 'polsun')
     if polzun is not None:
         x, y = polzun

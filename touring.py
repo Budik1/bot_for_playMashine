@@ -1,22 +1,24 @@
 import pyautogui
 from time import sleep, time
-from fun_na4 import enemy_battle, vybor_zadaniya_na_puli
+from fun_station_master import enemy_battle, vybor_zadaniya_na_puli
 import baza_dannyx as b_d
-from fun import push_close, move_to_click
+from fun import push_close_all, move_to_click
 
 # son = 1
 # station = 1
 number_of_gifts = 0
 number_of_kiki = 0
 number_of_krysa = 0
+number_of_arachne = 0
+number_of_raptor = 0
 
 
-def _gift():
+def event_gifts():
     """Поиск подарков на станции. Возвращает его позицию"""
     sleep(1)
     pos_gift = pyautogui.locateCenterOnScreen('img/tonelli/gift.png', confidence=0.75)
     # print(pos_gift, "подарок")
-    if pos_gift is not None:
+    if pos_gift:
         x, y = pos_gift
         # x += 15
         # y -= 15
@@ -26,7 +28,7 @@ def _gift():
         close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
         # если тормозит отрисовка, ожидает появление кнопки "закрыть"
         it = 0
-        while close is None:
+        while not close:
             it += 1
             sleep(1)
             close = pyautogui.locateCenterOnScreen('img/close.png', confidence=0.9)
@@ -43,8 +45,8 @@ def to_map():
     """Из окна станции открывает карту. На Тургеневской выход смещен"""
     # print('def to_map')
     sleep(1)
-    id_st = pyautogui.locateCenterOnScreen(b_d.turgenev[2], confidence=0.85)
-    if id_st is not None:
+    id_st = pyautogui.locateCenterOnScreen(b_d.st_turgenev[2], confidence=0.85)
+    if id_st:
         pos_or1 = pyautogui.locateCenterOnScreen('img/klan_red.png', confidence=0.85)
         x1, y1 = pos_or1
         x1, y1 = x1 + 205, y1 + 205
@@ -71,44 +73,51 @@ def tunnel_events(st0, st2):
     :param st0: название станции из списка
     :param st2: имя файла ID станции
     """
-    # st0 , st2
-    global number_of_gifts, number_of_kiki, number_of_krysa
+    global number_of_gifts, number_of_kiki, number_of_krysa, number_of_raptor, number_of_arachne
     sleep(1)
     id_st = pyautogui.locateCenterOnScreen(st2, confidence=0.85)
-    while id_st is None:
+    while not id_st:
         info = pyautogui.locateCenterOnScreen('img/info.png', confidence=0.8)
         x, y = info
-        y += 400
+        y += 350
         pyautogui.moveTo(x, y)
         post = pyautogui.locateCenterOnScreen('img/tonelli/post.png', confidence=0.8)
-        krysa = pyautogui.locateCenterOnScreen('img/tonelli/krysa.png', confidence=0.85)
-        kiki = pyautogui.locateCenterOnScreen('img/tonelli/kikimora.png', confidence=0.85)
         skip_battle = pyautogui.locateCenterOnScreen('img/skip_battle.png', confidence=0.79)
-        if skip_battle is not None:
-            if krysa is not None:
+        if skip_battle:
+            raptor = pyautogui.locateCenterOnScreen('img/tonelli/raptor.png', confidence=0.85)
+            arachne = pyautogui.locateCenterOnScreen('img/tonelli/arachne.png', confidence=0.85)
+            krysa = pyautogui.locateCenterOnScreen('img/tonelli/krysa.png', confidence=0.85)
+            kiki = pyautogui.locateCenterOnScreen('img/tonelli/kikimora.png', confidence=0.85)
+            if krysa:
                 number_of_krysa += 1
                 print(f'{number_of_krysa} Detekt krysa')
-            if kiki is not None:
+            if kiki:
                 number_of_kiki += 1
                 print(f'{number_of_kiki} Detekt Kikimora')
+            if arachne:
+                number_of_arachne += 1
+                print(f'{number_of_arachne} Detekt arachne')
+            if raptor:
+                number_of_raptor += 1
+                print(f'{number_of_raptor} Detekt raptor')
             enemy_battle(1)
-        if post is not None:
+        if post:
             pyautogui.moveTo(post, duration=0.2)
             attack = pyautogui.locateCenterOnScreen('img/tonelli/attack.png', confidence=0.85)
             entry = pyautogui.locateCenterOnScreen('img/tonelli/entry_station.png', confidence=0.8)
-            if entry is not None:
+            if entry:
                 move_to_click(entry, 0.3)
                 sleep(1)
-            elif attack is not None:
+            elif attack:
                 move_to_click(attack, 0.3)
                 sleep(1)
-        sleep(0.1)
+        # sleep(0.1)
         id_st = pyautogui.locateCenterOnScreen(st2, confidence=0.85)
     # print(st0)  # название станции
     pyautogui.moveTo(id_st, duration=1, tween=pyautogui.easeInOutQuad)
-    # вызов функции "_gift()" и подсчет количества найденных
-    pos_gift = _gift()
-    if pos_gift is not None:
+    # вызов функции "event_gifts()" и подсчет количества найденных
+    pos_gift = event_gifts()
+    if pos_gift:
         number_of_gifts += 1
     # print(st0, ' подарков ', number_of_gifts)
 
@@ -163,7 +172,7 @@ def test():
     :return: количество встреченных крыс
     """
     global number_of_krysa
-    push_close()
+    push_close_all()
     travel(b_d.test_running)
     print("тест успешно выполнен")
     return number_of_krysa
@@ -172,7 +181,7 @@ def test():
 def tasks_na_kievskoy():
     """Движение от Кузнецкого моста на Киевскую - выполнение заданий нач. станции - движение до Кузнецкого моста -
     выполнение заданий нач. станции пока есть задания удовлетворяющие поиск"""
-    push_close()
+    push_close_all()
     most_kiev()
     vybor_zadaniya_na_puli()
     print('задания на Киевской выполнены')
@@ -181,11 +190,11 @@ def tasks_na_kievskoy():
     print('энергия исчерпана')
 
 
-# движение от park_kr до Кузнецкого моста
+# движение от st_park_kr до Кузнецкого моста
 def riga_most():
     """Маршрут Рижская - Кузнецкий мост"""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.riga_most)
     print("вернулся домой")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -197,7 +206,7 @@ def riga_most():
 def frunze_most():
     """Маршрут Фрунзенская - Кузнецкий мост"""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.frunze_most)
     finish_time = float(time() - start_time)  # общее количество секунд
     minutes = int(finish_time // 60)  # количество минут
@@ -208,7 +217,7 @@ def frunze_most():
 def most_frunze():
     """Маршрут Кузнецкий мост - Фрунзенская"""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.most_frunze)
     finish_time = float(time() - start_time)  # общее количество секунд
     minutes = int(finish_time // 60)  # количество минут
@@ -221,7 +230,7 @@ def most_riga():
     # движение от
     """Маршрут Кузнецкий мост - Киевская"""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.most_riga)
     print("пришел на Рижскую")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -233,7 +242,7 @@ def most_riga():
 def kiev_most():
     """Маршрут Киевская - Кузнецккий мост """
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.kiev_most)
     print("вернулся домой")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -245,7 +254,7 @@ def kiev_most():
 def kiev_frunze():
     """Маршрут Киевская - Фрунзенская"""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.kiev_frunze)
     print("вернулся домой")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -258,7 +267,7 @@ def kiev_frunze():
 def most_kiev():
     """Маршрут Кузнецкий мост - Киевская"""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.most_kiev)
     print("пришел на Киевскую")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -270,7 +279,7 @@ def most_kiev():
 def frunze_kiev():
     """Маршрут Фрунзенская - Киевская"""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.frunze_kiev)
     print("пришел на Киевскую")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -282,7 +291,7 @@ def frunze_kiev():
 def frunze_riga():
     """Маршрут Фрунзенская"""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.frunze_riga)
     print("вернулся домой")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -294,7 +303,7 @@ def frunze_riga():
 def riga_frunze():
     """Маршрут  Фрунзенская"""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.riga_frunze)
     print("вернулся домой")
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -306,7 +315,7 @@ def riga_frunze():
 def za_kikimorami():
     """При смене станции прописки список содержащий маршрут надо переписывать вручную."""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.frunze_kikimory)
     print('на сегодня кикиморы выбиты')
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -318,7 +327,7 @@ def za_kikimorami():
 def pauk_yascher():
     """При смене станции прописки список содержащий маршрут надо переписывать вручную."""
     start_time = time()
-    push_close()
+    push_close_all()
     travel(b_d.pauk_yascher)
     print('на сегодня все пауки с ящерами зачищены')
     finish_time = float(time() - start_time)  # общее количество секунд
@@ -329,7 +338,7 @@ def pauk_yascher():
 
 def sbor_podarkov():
     """Обход всех станций. При смене станции прописки список содержащий маршрут надо переписывать вручную."""
-    push_close()
+    push_close_all()
     # travel(b_d.bypass)
     for it in range(len(b_d.bypass)):
         k = it % len(b_d.bypass)

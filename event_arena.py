@@ -1,6 +1,6 @@
 import pyautogui
 from time import sleep
-from fun_na4 import enemy_battle
+from fun_station_master import enemy_battle
 from fun import move_to_click, find_link
 
 
@@ -25,9 +25,9 @@ def foto_pos(name_img: str, region: tuple, tune_x=0, tune_y=0, tune_s=0, tune_v=
 
 
 def create_img_arena_object():
-    """Создаёт скрин arena_object из зала славы"""
+    """Создаёт скрин arena_object из зала славы. Объект должен быть вверху списка """
     pos_or_v = find_link()  # ориентир на зал славы
-    pyautogui.moveTo(pos_or_v)
+    # pyautogui.moveTo(pos_or_v)
     # print(pos_or_v)
     move_to_click(pos_or_v, 0.3)  # открыть зал славы
     pyautogui.moveTo(pos_or_v[0] - 678, pos_or_v[1] + 144)

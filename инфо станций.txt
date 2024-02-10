@@ -9,37 +9,37 @@
 6 кикиморы
 7 ящеры
 
-alexs           ? ? ?
-vdnx            ? ? ?
-kiev            2/3 3/4 4/5
+alexs         - ? ? ?
+vdnx          - ? ? ?
+kiev          + 2/3 3/4 4/5
 
-kitay           ? ? ?
-park_kr         1/2 2/3 3/4
-prospekt        ? ? ?
-riga            ? ? ?
-suxarev         ? ? ?
+kitay         - ? ? ?
+park_kr       - 1/2 2/3 3/4
+prospekt      - ? ? ?
+riga          - ? ? ?
+suxarev       - ? ? ?
 
-frunze          2 3 7
-komunist        2 3 7
+frunze        - 2 3 7
+komunist      - 2 3 7
 
-biblioteka      1 2 3
-borov           1 2 3
-bulvar          1 2 3
-most            1 2 3
-novok           1 2 3
-pavelec         1 2 3
-pavelec_g       1 2 3
-pushkin         1 2 3
-teatr           1 2 3
-tver            1 2 3
+biblioteka    - 1 2 3
+borov         - 1 2 3
+bulvar        - 1 2 3
+most          + 1 2 3
+novok         - 1 2 3
+pavelec       - 1 2 3
+pavelec_g     - 1 2 3
+pushkin       - 1 2 3
+teatr         - 1 2 3
+tver          - 1 2 3
 
-kiev_a          - - -
+kiev_a        0 - - -
 kropot          - - -
-park_g          - - -
-polyanka        - - -
-tretya          - - -
-turgenev        - - -
-chexov          - - -
+park_g        0 - - -
+polyanka      0 - - -
+tretya        0 - - -
+turgenev      0 - - -
+chexov        0 - - -
 
 25 станций
 7 без заданий

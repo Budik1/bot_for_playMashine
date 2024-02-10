@@ -1,5 +1,5 @@
 import pyautogui
-from fun_na4 import enemy_battle
+from fun_station_master import enemy_battle
 from time import sleep
 from fun import move_to_click, move_right_friends_list, find_link
 
